@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3075C724247CFAB100614761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C723247CFAB100614761 /* AppDelegate.swift */; };
+		3075C726247CFAB100614761 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C725247CFAB100614761 /* ContentView.swift */; };
+		3075C728247CFAB300614761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C727247CFAB300614761 /* Assets.xcassets */; };
+		3075C72B247CFAB300614761 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C72A247CFAB300614761 /* Preview Assets.xcassets */; };
+		3075C72E247CFAB300614761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3075C72C247CFAB300614761 /* Main.storyboard */; };
+		3075C73A247CFAB300614761 /* BrightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C739247CFAB300614761 /* BrightTests.swift */; };
+		3075C745247CFAB300614761 /* BrightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C744247CFAB300614761 /* BrightUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3075C736247CFAB300614761 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3075C718247CFAB100614761 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3075C71F247CFAB100614761;
+			remoteInfo = Bright;
+		};
+		3075C741247CFAB300614761 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3075C718247CFAB100614761 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3075C71F247CFAB100614761;
+			remoteInfo = Bright;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3075C720247CFAB100614761 /* Bright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bright.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3075C723247CFAB100614761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3075C725247CFAB100614761 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3075C727247CFAB300614761 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3075C72A247CFAB300614761 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3075C72D247CFAB300614761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3075C72F247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3075C730247CFAB300614761 /* Bright.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bright.entitlements; sourceTree = "<group>"; };
+		3075C735247CFAB300614761 /* BrightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3075C739247CFAB300614761 /* BrightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightTests.swift; sourceTree = "<group>"; };
+		3075C73B247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3075C740247CFAB300614761 /* BrightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3075C744247CFAB300614761 /* BrightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightUITests.swift; sourceTree = "<group>"; };
+		3075C746247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3075C71D247CFAB100614761 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3075C732247CFAB300614761 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3075C73D247CFAB300614761 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3075C717247CFAB100614761 = {
+			isa = PBXGroup;
+			children = (
+				3075C722247CFAB100614761 /* Bright */,
+				3075C738247CFAB300614761 /* BrightTests */,
+				3075C743247CFAB300614761 /* BrightUITests */,
+				3075C721247CFAB100614761 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3075C721247CFAB100614761 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3075C720247CFAB100614761 /* Bright.app */,
+				3075C735247CFAB300614761 /* BrightTests.xctest */,
+				3075C740247CFAB300614761 /* BrightUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3075C722247CFAB100614761 /* Bright */ = {
+			isa = PBXGroup;
+			children = (
+				3075C723247CFAB100614761 /* AppDelegate.swift */,
+				3075C725247CFAB100614761 /* ContentView.swift */,
+				3075C727247CFAB300614761 /* Assets.xcassets */,
+				3075C72C247CFAB300614761 /* Main.storyboard */,
+				3075C72F247CFAB300614761 /* Info.plist */,
+				3075C730247CFAB300614761 /* Bright.entitlements */,
+				3075C729247CFAB300614761 /* Preview Content */,
+			);
+			path = Bright;
+			sourceTree = "<group>";
+		};
+		3075C729247CFAB300614761 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3075C72A247CFAB300614761 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3075C738247CFAB300614761 /* BrightTests */ = {
+			isa = PBXGroup;
+			children = (
+				3075C739247CFAB300614761 /* BrightTests.swift */,
+				3075C73B247CFAB300614761 /* Info.plist */,
+			);
+			path = BrightTests;
+			sourceTree = "<group>";
+		};
+		3075C743247CFAB300614761 /* BrightUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3075C744247CFAB300614761 /* BrightUITests.swift */,
+				3075C746247CFAB300614761 /* Info.plist */,
+			);
+			path = BrightUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3075C71F247CFAB100614761 /* Bright */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3075C749247CFAB300614761 /* Build configuration list for PBXNativeTarget "Bright" */;
+			buildPhases = (
+				3075C71C247CFAB100614761 /* Sources */,
+				3075C71D247CFAB100614761 /* Frameworks */,
+				3075C71E247CFAB100614761 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bright;
+			productName = Bright;
+			productReference = 3075C720247CFAB100614761 /* Bright.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3075C734247CFAB300614761 /* BrightTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3075C74C247CFAB300614761 /* Build configuration list for PBXNativeTarget "BrightTests" */;
+			buildPhases = (
+				3075C731247CFAB300614761 /* Sources */,
+				3075C732247CFAB300614761 /* Frameworks */,
+				3075C733247CFAB300614761 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3075C737247CFAB300614761 /* PBXTargetDependency */,
+			);
+			name = BrightTests;
+			productName = BrightTests;
+			productReference = 3075C735247CFAB300614761 /* BrightTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3075C73F247CFAB300614761 /* BrightUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3075C74F247CFAB300614761 /* Build configuration list for PBXNativeTarget "BrightUITests" */;
+			buildPhases = (
+				3075C73C247CFAB300614761 /* Sources */,
+				3075C73D247CFAB300614761 /* Frameworks */,
+				3075C73E247CFAB300614761 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3075C742247CFAB300614761 /* PBXTargetDependency */,
+			);
+			name = BrightUITests;
+			productName = BrightUITests;
+			productReference = 3075C740247CFAB300614761 /* BrightUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3075C718247CFAB100614761 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				TargetAttributes = {
+					3075C71F247CFAB100614761 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					3075C734247CFAB300614761 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 3075C71F247CFAB100614761;
+					};
+					3075C73F247CFAB300614761 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 3075C71F247CFAB100614761;
+					};
+				};
+			};
+			buildConfigurationList = 3075C71B247CFAB100614761 /* Build configuration list for PBXProject "Bright" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3075C717247CFAB100614761;
+			productRefGroup = 3075C721247CFAB100614761 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3075C71F247CFAB100614761 /* Bright */,
+				3075C734247CFAB300614761 /* BrightTests */,
+				3075C73F247CFAB300614761 /* BrightUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3075C71E247CFAB100614761 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3075C72E247CFAB300614761 /* Main.storyboard in Resources */,
+				3075C72B247CFAB300614761 /* Preview Assets.xcassets in Resources */,
+				3075C728247CFAB300614761 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3075C733247CFAB300614761 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3075C73E247CFAB300614761 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3075C71C247CFAB100614761 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3075C726247CFAB100614761 /* ContentView.swift in Sources */,
+				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3075C731247CFAB300614761 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3075C73A247CFAB300614761 /* BrightTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3075C73C247CFAB300614761 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3075C745247CFAB300614761 /* BrightUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3075C737247CFAB300614761 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3075C71F247CFAB100614761 /* Bright */;
+			targetProxy = 3075C736247CFAB300614761 /* PBXContainerItemProxy */;
+		};
+		3075C742247CFAB300614761 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3075C71F247CFAB100614761 /* Bright */;
+			targetProxy = 3075C741247CFAB300614761 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3075C72C247CFAB300614761 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3075C72D247CFAB300614761 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3075C747247CFAB300614761 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3075C748247CFAB300614761 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		3075C74A247CFAB300614761 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bright/Bright.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Bright/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Bright/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = moctivity.Bright;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3075C74B247CFAB300614761 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bright/Bright.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Bright/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Bright/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = moctivity.Bright;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3075C74D247CFAB300614761 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BrightTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = moctivity.BrightTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bright.app/Contents/MacOS/Bright";
+			};
+			name = Debug;
+		};
+		3075C74E247CFAB300614761 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BrightTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = moctivity.BrightTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bright.app/Contents/MacOS/Bright";
+			};
+			name = Release;
+		};
+		3075C750247CFAB300614761 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BrightUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = moctivity.BrightUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Bright;
+			};
+			name = Debug;
+		};
+		3075C751247CFAB300614761 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = BrightUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = moctivity.BrightUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Bright;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3075C71B247CFAB100614761 /* Build configuration list for PBXProject "Bright" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3075C747247CFAB300614761 /* Debug */,
+				3075C748247CFAB300614761 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3075C749247CFAB300614761 /* Build configuration list for PBXNativeTarget "Bright" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3075C74A247CFAB300614761 /* Debug */,
+				3075C74B247CFAB300614761 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3075C74C247CFAB300614761 /* Build configuration list for PBXNativeTarget "BrightTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3075C74D247CFAB300614761 /* Debug */,
+				3075C74E247CFAB300614761 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3075C74F247CFAB300614761 /* Build configuration list for PBXNativeTarget "BrightUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3075C750247CFAB300614761 /* Debug */,
+				3075C751247CFAB300614761 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3075C718247CFAB100614761 /* Project object */;
+}
