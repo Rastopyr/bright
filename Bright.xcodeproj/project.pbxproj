@@ -14,6 +14,7 @@
 		3075C72E247CFAB300614761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3075C72C247CFAB300614761 /* Main.storyboard */; };
 		3075C73A247CFAB300614761 /* BrightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C739247CFAB300614761 /* BrightTests.swift */; };
 		3075C745247CFAB300614761 /* BrightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C744247CFAB300614761 /* BrightUITests.swift */; };
+		3075C758247E680900614761 /* structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C757247E680900614761 /* structs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		3075C740247CFAB300614761 /* BrightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3075C744247CFAB300614761 /* BrightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightUITests.swift; sourceTree = "<group>"; };
 		3075C746247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3075C757247E680900614761 /* structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = structs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		3075C722247CFAB100614761 /* Bright */ = {
 			isa = PBXGroup;
 			children = (
+				3075C756247E67F200614761 /* model */,
 				3075C723247CFAB100614761 /* AppDelegate.swift */,
 				3075C725247CFAB100614761 /* ContentView.swift */,
 				3075C727247CFAB300614761 /* Assets.xcassets */,
@@ -133,6 +136,14 @@
 				3075C746247CFAB300614761 /* Info.plist */,
 			);
 			path = BrightUITests;
+			sourceTree = "<group>";
+		};
+		3075C756247E67F200614761 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				3075C757247E680900614761 /* structs.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +278,7 @@
 			files = (
 				3075C726247CFAB100614761 /* ContentView.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
+				3075C758247E680900614761 /* structs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
