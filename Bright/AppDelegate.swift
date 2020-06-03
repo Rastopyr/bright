@@ -10,17 +10,23 @@ import SwiftUI
 
 var app: AppDelegate!
 
+enum JustError: Error {
+    case runtimeError(String)
+}
+
+let WINDOW_WIDTH = 750;
+let WINDOW_HEIGHT = 315;
+
 
 @NSApplicationMain
 class AppDelegate: NSScreen, NSApplicationDelegate {
-
-//    var window: NSWindow!
         
     private var displays: Array<Display> = []
 
     private var statusMenu: NSMenu = NSMenu();
     private var statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-
+    
+    private var window: NSWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         app = self;
@@ -34,55 +40,53 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         
         
         
-        self.buildMenu();
+        self.buildMenu()
+        self.buidUI()
         
-        NSApp.setActivationPolicy(.accessory)
+        window.center()
+        window.setIsVisible(true)
     }
     
-    private func getDisplayBrightness(displayID: UInt32) -> Float {
-        var brightness: Float = 1.0
-        var service: io_object_t = displayID
-        let iterator: io_iterator_t = 0
+    private func buidUI() {
+        self.buildWindow()
+    }
+    
+    private func buildWindow() -> Void {
+        let mainView = BrightApp(
+            onControlChanges: { self.setBrightnessForAll(val: $0) }
+        )
+//        let activeDisplay = self.getActiveDisplay()
+        
+        window = NSWindow(
+            contentRect: .init(
+                origin: .zero,
+                size: .init(
+                    width: WINDOW_WIDTH,
+                    height: WINDOW_HEIGHT
+            )),
+            
+            styleMask: [],
+            
+            backing: .buffered,
+            defer: false
+        )
+        
+        let visualEffect = NSVisualEffectView()
+        visualEffect.blendingMode = .behindWindow
+        visualEffect.state = .active
+        visualEffect.material = .appearanceBased
 
-        service = IOIteratorNext(iterator)
-        IODisplayGetFloatParameter(service, 0, kIODisplayBrightnessKey as CFString, &brightness)
-        IOObjectRelease(service)
-        
-        return brightness
-    }
-    
-    
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.hidesOnDeactivate = true
 
-    @objc
-    private func syncDisplays() {
-        displays = NSScreen.screens.map({ (screen: NSScreen) -> Display in
-            return Display(
-                name: screen.localizedName,
-                brightness: self.getDisplayBrightness(
-                    displayID: (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID)!
-                ),
-                order: 0)
-        })
+        let hosting = NSHostingView(rootView: mainView)
+        window.contentView = visualEffect
+        visualEffect.addSubview(hosting)
         
-        print(displays)
-    }
-    
-    private func syncBrightness() {
+        hosting.setFrameSize(NSSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
         
     }
-    
-    private func subscribeToDisplayChanges() {
-        NotificationCenter.default.addObserver(
-            forName: NSApplication.didChangeScreenParametersNotification,
-            object: NSApplication.shared,
-            queue: OperationQueue.main) {
-                notification -> Void in
-                self.syncDisplays()
-        }
-        
-        CGDisplayRegisterReconfigurationCallback({ _, _, _ in app.syncDisplays() }, nil)
-    }
-    private func subscribeToBrightnessChanges() {}
     
     private func buildMenu() {
         let titleItem = NSMenuItem()
@@ -101,6 +105,94 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         quitItem.action = #selector(self.quitApp)
     }
     
+    private func getActiveDisplay() -> Display {
+        let activeDispay = displays.first { (d) -> Bool in
+            return d.name == NSScreen.main?.localizedName
+        }
+        
+        return activeDispay!
+    }
+    
+    private func subscribeToDisplayChanges() {
+        NotificationCenter.default.addObserver(
+            forName: NSApplication.didChangeScreenParametersNotification,
+            object: NSApplication.shared,
+            queue: OperationQueue.main) {
+                notification -> Void in
+                self.syncDisplays()
+        }
+        
+        CGDisplayRegisterReconfigurationCallback({ _, _, _ in app.syncDisplays() }, nil)
+    }
+    
+    @objc
+    private func syncDisplays() {
+        displays = NSScreen.screens.map({ (screen: NSScreen) -> Display in
+            let displayID = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID)!;
+            return Display(
+                id: displayID,
+                name: screen.localizedName,
+                brightness: self.getBrightness(
+                    displayID: displayID
+                ),
+                order: 0,
+                size: screen.frame
+            )
+        })
+    }
+    
+    private func subscribeToBrightnessChanges() {}
+    
+    private func syncBrightness() {
+        
+    }
+    
+    private func setBrightnessForAll(val: Float) -> Void {
+        for display in displays {
+            print(display)
+            AppDelegate.CoreDisplaySetUserBrightness(display.id, Double(val))
+        }
+    }
+    
+    private static var CoreDisplaySetUserBrightness: ((CGDirectDisplayID, Double) -> Void) {
+      let coreDisplayPath = CFURLCreateWithString(kCFAllocatorDefault, "/System/Library/Frameworks/CoreDisplay.framework" as CFString, nil)
+        
+        let coreDisplayBundle = CFBundleCreate(kCFAllocatorDefault, coreDisplayPath)
+         let funcPointer = CFBundleGetFunctionPointerForName(coreDisplayBundle, "CoreDisplay_Display_SetUserBrightness" as CFString)
+      typealias CDSUBFunctionType = @convention(c) (UInt32, Double) -> Void
+      return unsafeBitCast(funcPointer, to: CDSUBFunctionType.self)
+    }
+    
+    private func getBrightness(displayID: UInt32) -> Float {
+        var brightness: Float = 1.0
+        var service: io_object_t = displayID
+        let iterator: io_iterator_t = 0
+
+        service = IOIteratorNext(iterator)
+        IODisplayGetFloatParameter(service, 0, kIODisplayBrightnessKey as CFString, &brightness)
+        IOObjectRelease(service)
+        
+        return brightness
+    }
+    
+    private func setBrightness(displayID: UInt32, val: Float) -> Void {
+//        var service: io_object_t = displayID
+//        let iterator: io_iterator_t = 0
+        
+        print("set val")
+         print(displayID)
+        print(val)
+
+//        service = IOIteratorNext(iterator)
+//        IODisplaySetFloatParameter(displayID, 0, kIODisplayBrightnessKey as CFString, val)
+//        IOObjectRelease(displayID)
+        
+        let service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IODisplayConnect"))
+        
+        IODisplaySetFloatParameter(service, 0, kIODisplayBrightnessKey as CFString, val)
+        IOObjectRelease(service)
+    }
+    
     @objc
     private func quitApp() {
         NSApplication.shared.terminate(self)
@@ -110,6 +202,6 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
 
 struct AppDelegate_Previews: PreviewProvider {
     static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+        BrightApp(onControlChanges: {_ in })
     }
 }
