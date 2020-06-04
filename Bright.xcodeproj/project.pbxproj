@@ -3,11 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		300E21472486A501003905B8 /* BrightControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300E21462486A501003905B8 /* BrightControl.swift */; };
+		304204AA2488D03200BD0DB5 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; };
+		304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204AD2488DAEA00BD0DB5 /* DisplayService.swift */; };
+		304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204B12488DD7D00BD0DB5 /* AppService.swift */; };
+		304204B52488F6AB00BD0DB5 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204B42488F6AB00BD0DB5 /* NSMenuItem.swift */; };
 		3075C724247CFAB100614761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C723247CFAB100614761 /* AppDelegate.swift */; };
 		3075C726247CFAB100614761 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C725247CFAB100614761 /* ContentView.swift */; };
 		3075C728247CFAB300614761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C727247CFAB300614761 /* Assets.xcassets */; };
@@ -36,8 +41,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		304204AC2488D03200BD0DB5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		300E21462486A501003905B8 /* BrightControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightControl.swift; sourceTree = "<group>"; };
+		304204A82488D02800BD0DB5 /* Swinject.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Swinject.framework.dSYM; path = Carthage/Build/Mac/Swinject.framework.dSYM; sourceTree = "<group>"; };
+		304204A92488D03200BD0DB5 /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/Mac/Swinject.framework; sourceTree = "<group>"; };
+		304204AD2488DAEA00BD0DB5 /* DisplayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayService.swift; sourceTree = "<group>"; };
+		304204B12488DD7D00BD0DB5 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		304204B42488F6AB00BD0DB5 /* NSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		3075C720247CFAB100614761 /* Bright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bright.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3075C723247CFAB100614761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3075C725247CFAB100614761 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				304204AA2488D03200BD0DB5 /* Swinject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,8 +109,27 @@
 		300E21482486AE87003905B8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				304204AD2488DAEA00BD0DB5 /* DisplayService.swift */,
+				304204B12488DD7D00BD0DB5 /* AppService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		304204A72488D02800BD0DB5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				304204A92488D03200BD0DB5 /* Swinject.framework */,
+				304204A82488D02800BD0DB5 /* Swinject.framework.dSYM */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		304204B32488F69600BD0DB5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				304204B42488F6AB00BD0DB5 /* NSMenuItem.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3075C717247CFAB100614761 = {
@@ -95,7 +139,7 @@
 				3075C738247CFAB300614761 /* BrightTests */,
 				3075C743247CFAB300614761 /* BrightUITests */,
 				3075C721247CFAB100614761 /* Products */,
-				E2F75556BEE835CB31BF0C06 /* Pods */,
+				304204A72488D02800BD0DB5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +156,7 @@
 		3075C722247CFAB100614761 /* Bright */ = {
 			isa = PBXGroup;
 			children = (
+				304204B32488F69600BD0DB5 /* Extensions */,
 				300E21482486AE87003905B8 /* Services */,
 				30B9F521247FE9F5009459D2 /* UI */,
 				3075C756247E67F200614761 /* Model */,
@@ -169,13 +214,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		E2F75556BEE835CB31BF0C06 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,6 +224,7 @@
 				3075C71C247CFAB100614761 /* Sources */,
 				3075C71D247CFAB100614761 /* Frameworks */,
 				3075C71E247CFAB100614761 /* Resources */,
+				304204AC2488D03200BD0DB5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -308,8 +347,11 @@
 			files = (
 				3075C726247CFAB100614761 /* ContentView.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
+				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
 				3075C758247E680900614761 /* Structs.swift in Sources */,
 				30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */,
+				304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */,
+				304204B52488F6AB00BD0DB5 /* NSMenuItem.swift in Sources */,
 				300E21472486A501003905B8 /* BrightControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,6 +521,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Bright/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Bright/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -500,6 +546,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Bright/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Bright/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
