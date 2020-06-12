@@ -8,6 +8,7 @@
 import Cocoa
 import SwiftUI
 import Swinject
+import DDC
 
 var app: AppDelegate!
 
@@ -23,12 +24,25 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         let container = Container()
         
         container.register(AppService.self) { _ in AppService() }
+        container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }
+        container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }
         
         return container
     }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         self.buildStatusBar()
+        
+        let displaySerivce = container.resolve(DisplayService.self)!
+        
+        displaySerivce.syncDisplays()
+        displaySerivce.subscribeToDisplayChanges()
+        
+        let brightnessSerivce = container.resolve(BrightnessSerivce.self)!
+        
+        displaySerivce.displays.forEach { (display) in
+            brightnessSerivce.setBrightness(display: display, brightnessValue: 1.0)
+        }
     }
     
     private func buildStatusBar() {

@@ -15,7 +15,8 @@ struct BrightValues {
 struct Display {
     let id: UInt32;
     let name: String;
-    var brightness: Float;
+    let isNative: Bool;
+    var brightness: Double;
     var order: Int;
     var size: NSRect
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30057A082489875B00F99CB8 /* BrightnessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30057A072489875B00F99CB8 /* BrightnessService.swift */; };
 		300E21472486A501003905B8 /* BrightControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300E21462486A501003905B8 /* BrightControl.swift */; };
 		304204AA2488D03200BD0DB5 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; };
 		304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -21,6 +22,8 @@
 		3075C73A247CFAB300614761 /* BrightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C739247CFAB300614761 /* BrightTests.swift */; };
 		3075C745247CFAB300614761 /* BrightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C744247CFAB300614761 /* BrightUITests.swift */; };
 		3075C758247E680900614761 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C757247E680900614761 /* Structs.swift */; };
+		30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; };
+		30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B9F51F247FE7C2009459D2 /* BrightApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +51,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */,
 				304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -56,6 +60,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		30057A072489875B00F99CB8 /* BrightnessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessService.swift; sourceTree = "<group>"; };
+		30057A09248ADB6B00F99CB8 /* DDC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DDC.framework; path = Carthage/Build/Mac/DDC.framework; sourceTree = "<group>"; };
 		300E21462486A501003905B8 /* BrightControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightControl.swift; sourceTree = "<group>"; };
 		304204A82488D02800BD0DB5 /* Swinject.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Swinject.framework.dSYM; path = Carthage/Build/Mac/Swinject.framework.dSYM; sourceTree = "<group>"; };
 		304204A92488D03200BD0DB5 /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/Mac/Swinject.framework; sourceTree = "<group>"; };
@@ -77,6 +83,7 @@
 		3075C744247CFAB300614761 /* BrightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightUITests.swift; sourceTree = "<group>"; };
 		3075C746247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3075C757247E680900614761 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DDC.framework.dSYM; path = Carthage/Build/Mac/DDC.framework.dSYM; sourceTree = "<group>"; };
 		30B9F51F247FE7C2009459D2 /* BrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */,
 				304204AA2488D03200BD0DB5 /* Swinject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,6 +119,7 @@
 			children = (
 				304204AD2488DAEA00BD0DB5 /* DisplayService.swift */,
 				304204B12488DD7D00BD0DB5 /* AppService.swift */,
+				30057A072489875B00F99CB8 /* BrightnessService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -118,6 +127,8 @@
 		304204A72488D02800BD0DB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */,
+				30057A09248ADB6B00F99CB8 /* DDC.framework */,
 				304204A92488D03200BD0DB5 /* Swinject.framework */,
 				304204A82488D02800BD0DB5 /* Swinject.framework.dSYM */,
 			);
@@ -282,6 +293,7 @@
 				TargetAttributes = {
 					3075C71F247CFAB100614761 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					3075C734247CFAB300614761 = {
 						CreatedOnToolsVersion = 11.5;
@@ -345,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30057A082489875B00F99CB8 /* BrightnessService.swift in Sources */,
 				3075C726247CFAB100614761 /* ContentView.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
 				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
@@ -455,6 +468,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -508,6 +522,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -516,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Bright/Bright.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -533,6 +549,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moctivity.Bright;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -541,6 +558,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Bright/Bright.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
