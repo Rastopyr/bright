@@ -1,2 +1,3 @@
+github "ReactiveX/RxSwift" "5.1.1"
 github "Swinject/Swinject" "2.7.1"
 github "reitermarkus/DDC.swift" "1763870c94c555ff93878caaec8235fd3a9a429d"

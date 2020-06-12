@@ -6,43 +6,72 @@
 //
 
 import SwiftUI
-import Combine
+import RxSwift
 
 let CONTROL_WIDTH: CGFloat = 96
 let CONTROL_HEIGHT: CGFloat = 232
 
-final class ControlData: ObservableObject  {
-    let didChange = PassthroughSubject<ControlData, Never>()
-
-    @Published var progress = 0.0 {
-        didSet {
-            didChange.send(self)
-        }
-    }
-}
+let scheduler = SerialDispatchQueueScheduler(qos: .default)
 
 struct BrightControl: View {
-    @EnvironmentObject var controlData: ControlData
-    
-    let onControlChanges: (_: Float) -> Void;
+    @State var fillPercent: Double = 0.0
+
+    private var fillHeight: CGFloat {
+        return CONTROL_HEIGHT * CGFloat(self.fillPercent)
+    }
+
+    private var position: CGPoint {
+        return CGPoint(
+            x: CONTROL_WIDTH / 2,
+            y: CONTROL_HEIGHT - (fillHeight / 2)
+        )
+    }
     
     var body: some View {
-        VStack {
-            Slider(
-                value: $controlData.progress,
-                in: 0...1,
-                onEditingChanged: { _ in  self.onControlChanges(Float(self.controlData.progress)) }
+        let dragGuesture = DragGesture(
+            minimumDistance: 0,
+            coordinateSpace: .local
+        ).onChanged({
+            let fillPercentCandidate = 1.0 - Double(
+                $0.location.y / CONTROL_HEIGHT
             )
-                .rotationEffect(Angle(degrees: -90))
-                .frame(width: CONTROL_WIDTH, height: CONTROL_HEIGHT)
-                .clipped()
-        }.frame(width: CONTROL_WIDTH, height: CONTROL_HEIGHT)
+            
+            guard fillPercentCandidate <= 1 else {
+                self.fillPercent = 1;
+                return;
+            }
+            
+            guard fillPercentCandidate >= 0 else {
+                self.fillPercent = 0;
+                return;
+            }
+            
+            self.fillPercent = fillPercentCandidate;
+        })
         
+        return ZStack {
+            Rectangle().fill(Color.white.opacity(0.5))
+            Rectangle()
+                .fill(
+                   Color.white.opacity(0.8)
+                 )
+                .frame(
+                    width: CONTROL_WIDTH,
+                    height: self.fillHeight
+                )
+                .position(position)
+                .contentShape(Rectangle())
+                .gesture(dragGuesture)
+        }
+        .cornerRadius(CGFloat(10.0))
+        .frame(width: CONTROL_WIDTH, height: CONTROL_HEIGHT)
     }
 }
 
 struct BrightControl_Previews: PreviewProvider {
     static var previews: some View {
-        BrightControl(onControlChanges: {_ in }).environmentObject(ControlData())
+        BrightControl(
+            fillPercent: 0.5
+        )
     }
 }

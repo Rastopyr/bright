@@ -8,22 +8,16 @@
 import SwiftUI
 
 struct BrightApp: View {
-    let onControlChanges: (_: Float) -> Void;
-
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color.clear)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-            BrightControl(
-                onControlChanges: self.onControlChanges
-            ).environmentObject(ControlData())
-        }
+            BrightControl(fillPercent: 0.5)
+        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).clipped()
     }
 }
 
 struct BrightApp_Previews: PreviewProvider {
     static var previews: some View {
-        BrightApp(onControlChanges: {_ in })
+        BrightApp()
     }
 }

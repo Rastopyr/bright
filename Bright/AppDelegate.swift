@@ -9,8 +9,12 @@ import Cocoa
 import SwiftUI
 import Swinject
 import DDC
+import RxSwift
 
 var app: AppDelegate!
+
+let WINDOW_WIDTH = 750;
+let WINDOW_HEIGHT = 315;
 
 
 @NSApplicationMain
@@ -33,16 +37,54 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         self.buildStatusBar()
         
-        let displaySerivce = container.resolve(DisplayService.self)!
+//        var fillPercent$ = Observable<Int>.interval(
+//            .milliseconds(300), scheduler: scheduler
+//        ).subscribe({ event in
+//            print(event)
+//        })
         
-        displaySerivce.syncDisplays()
-        displaySerivce.subscribeToDisplayChanges()
+        let window = NSWindow(
+            contentRect: .init(
+                origin: .zero,
+                size: .init(
+                    width: WINDOW_WIDTH,
+                    height: WINDOW_HEIGHT
+            )),
+            
+            styleMask: [],
+            
+            backing: .buffered,
+            defer: false
+        )
         
-        let brightnessSerivce = container.resolve(BrightnessSerivce.self)!
+        let visualEffect = NSVisualEffectView()
+        visualEffect.blendingMode = .behindWindow
+        visualEffect.state = .active
+        visualEffect.material = .appearanceBased
+
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.hidesOnDeactivate = true
+
+        let hosting = NSHostingView(rootView: ContentView())
+        window.contentView = visualEffect
+        visualEffect.addSubview(hosting)
         
-        displaySerivce.displays.forEach { (display) in
-            brightnessSerivce.setBrightness(display: display, brightnessValue: 1.0)
-        }
+        hosting.setFrameSize(NSSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
+        
+        window.center()
+        window.setIsVisible(true)
+        
+//        let displaySerivce = container.resolve(DisplayService.self)!
+//        
+//        displaySerivce.syncDisplays()
+//        displaySerivce.subscribeToDisplayChanges()
+//        
+//        let brightnessSerivce = container.resolve(BrightnessSerivce.self)!
+//        
+//        displaySerivce.displays.forEach { (display) in
+//            brightnessSerivce.setBrightness(display: display, brightnessValue: 1.0)
+//        }
     }
     
     private func buildStatusBar() {
@@ -76,6 +118,6 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
 
 struct AppDelegate_Previews: PreviewProvider {
     static var previews: some View {
-        BrightApp(onControlChanges: {_ in })
+        BrightApp()
     }
 }

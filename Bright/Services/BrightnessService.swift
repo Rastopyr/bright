@@ -24,9 +24,7 @@ class BrightnessSerivce {
     
     func getBrightness(displayID: UInt32, isNative: Bool) -> Double {
         if (isNative == true) {
-            let brightness = BrightnessSerivce.getNativeBrightness?(displayID)
-            
-            return Double(brightness ?? 0)
+            return  BrightnessSerivce.getNativeBrightness?(displayID) ?? 0.0
         }
         
         return BrightnessSerivce.getExternalBrightness(displayID: displayID)
@@ -68,7 +66,7 @@ class BrightnessSerivce {
     }
     
     private static func getExternalBrightness(displayID: UInt32) -> Double {
-        guard let (currentValue, _) = DDC(for: displayID)?.read(command: .brightness) else {
+        guard let (currentValue, _) = DDC(for: displayID)?.read(command: .brightness, tries: 10, minReplyDelay: 1000) else {
             return 0.0
         }
         

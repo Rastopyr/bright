@@ -13,7 +13,6 @@
 		304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204AD2488DAEA00BD0DB5 /* DisplayService.swift */; };
 		304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204B12488DD7D00BD0DB5 /* AppService.swift */; };
-		304204B52488F6AB00BD0DB5 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204B42488F6AB00BD0DB5 /* NSMenuItem.swift */; };
 		3075C724247CFAB100614761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C723247CFAB100614761 /* AppDelegate.swift */; };
 		3075C726247CFAB100614761 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C725247CFAB100614761 /* ContentView.swift */; };
 		3075C728247CFAB300614761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C727247CFAB300614761 /* Assets.xcassets */; };
@@ -22,6 +21,8 @@
 		3075C73A247CFAB300614761 /* BrightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C739247CFAB300614761 /* BrightTests.swift */; };
 		3075C745247CFAB300614761 /* BrightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C744247CFAB300614761 /* BrightUITests.swift */; };
 		3075C758247E680900614761 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C757247E680900614761 /* Structs.swift */; };
+		308290042494044E00693326 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308290022494044500693326 /* RxSwift.framework */; };
+		308290052494044E00693326 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 308290022494044500693326 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; };
 		30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B9F51F247FE7C2009459D2 /* BrightApp.swift */; };
@@ -53,6 +54,7 @@
 			files = (
 				30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */,
 				304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */,
+				308290052494044E00693326 /* RxSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,7 +69,6 @@
 		304204A92488D03200BD0DB5 /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/Mac/Swinject.framework; sourceTree = "<group>"; };
 		304204AD2488DAEA00BD0DB5 /* DisplayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayService.swift; sourceTree = "<group>"; };
 		304204B12488DD7D00BD0DB5 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
-		304204B42488F6AB00BD0DB5 /* NSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		3075C720247CFAB100614761 /* Bright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bright.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3075C723247CFAB100614761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3075C725247CFAB100614761 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +84,8 @@
 		3075C744247CFAB300614761 /* BrightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightUITests.swift; sourceTree = "<group>"; };
 		3075C746247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3075C757247E680900614761 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		308290022494044500693326 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
+		308290032494044500693326 /* RxSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RxSwift.framework.dSYM; path = Carthage/Build/Mac/RxSwift.framework.dSYM; sourceTree = "<group>"; };
 		30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DDC.framework.dSYM; path = Carthage/Build/Mac/DDC.framework.dSYM; sourceTree = "<group>"; };
 		30B9F51F247FE7C2009459D2 /* BrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +97,7 @@
 			files = (
 				30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */,
 				304204AA2488D03200BD0DB5 /* Swinject.framework in Frameworks */,
+				308290042494044E00693326 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +131,8 @@
 		304204A72488D02800BD0DB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				308290022494044500693326 /* RxSwift.framework */,
+				308290032494044500693326 /* RxSwift.framework.dSYM */,
 				30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */,
 				30057A09248ADB6B00F99CB8 /* DDC.framework */,
 				304204A92488D03200BD0DB5 /* Swinject.framework */,
@@ -138,7 +144,6 @@
 		304204B32488F69600BD0DB5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				304204B42488F6AB00BD0DB5 /* NSMenuItem.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -364,7 +369,6 @@
 				3075C758247E680900614761 /* Structs.swift in Sources */,
 				30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */,
 				304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */,
-				304204B52488F6AB00BD0DB5 /* NSMenuItem.swift in Sources */,
 				300E21472486A501003905B8 /* BrightControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
