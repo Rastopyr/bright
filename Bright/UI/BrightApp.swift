@@ -10,7 +10,7 @@ import RxSwift
 
 
 
-class BrightAppModel: ObservableObject {
+class DisplaysBinding: ObservableObject {
     private let disposeBag = DisposeBag();
     
     @Published var displays: [Display] = [];
@@ -18,36 +18,23 @@ class BrightAppModel: ObservableObject {
     init(displays$: Observable<[Display]>) {
         displays$.subscribe(onNext: {
             self.displays = $0
-        }, onDisposed: {
-            print("dispose")
-        }).disposed(by: disposeBag)
-    }
-    
-    deinit {
-        print("deinit")
+        }, onDisposed: { print("dispose") }).disposed(by: disposeBag)
     }
 }
 
 struct BrightApp: View {
-    private let displays$: Observable<[Display]>;
-
-    private var model: BrightAppModel;
-
-    init() {
-        self.displays$ = AppDelegate.container.resolve(Observable.self, name: "displays$")!
-        self.model = BrightAppModel(displays$: self.displays$)
-    }
+    @ObservedObject var DI: MainContainer;
     
     var body: some View {
         return BrightApp.BrightAppView(
-            model: model
-        )
+            model: DisplaysBinding(displays$: DI.container.resolve(Observable.self, name: "displays$")!)
+        ).environmentObject(DI);
     }
 }
 
 extension BrightApp {
     struct BrightAppView: View {
-        @ObservedObject var model: BrightAppModel;
+        @ObservedObject var model: DisplaysBinding;
         
         var body: some View {
             return ZStack {
@@ -92,7 +79,7 @@ struct BrightApp_Previews: PreviewProvider {
         ]
         
         
-        let view = BrightApp.BrightAppView(model: BrightAppModel(displays$: ds$))
+        let view = BrightApp.BrightAppView(model: DisplaysBinding(displays$: ds$))
         
         displays$.onNext(d)
         

@@ -7,7 +7,6 @@
 
 import Cocoa
 import SwiftUI
-import Swinject
 import DDC
 import RxSwift
 
@@ -24,47 +23,28 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         withLength: NSStatusItem.variableLength
     )
     
-    public static let container: Container = {
-        let container = Container()
-        
-        container.register(AppService.self) { _ in AppService() }.inObjectScope(.container)
-        container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }.inObjectScope(.container)
-        container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }.inObjectScope(.container)
-        container.register(Observable.self, name: "displays$") { c in c.resolve(DisplayService.self)!.displays$ }.inObjectScope(.container)
-       
-        
-        container.register(BrightApp.self) { c in
-            BrightApp()
-        }.inObjectScope(.container)
-        
-        container.register(WindowService.self) { c in WindowService(
-                   mainView: c.resolve(BrightApp.self)!
-               )
-        }.inObjectScope(.container)
-        
-        container.register(ConnectorService.self) { c in ConnectorService(
-            windowService: c.resolve(WindowService.self)!,
-            displayService: c.resolve(DisplayService.self)!
-        )}.inObjectScope(.container)
-        
-        return container
-    }()
+    private let container = MainContainer.shared.container;
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        let displaySerivce = AppDelegate.container.resolve(DisplayService.self)!
+        let displaySerivce = container.resolve(DisplayService.self)!
         
         displaySerivce.subscribeToDisplayChanges()
         displaySerivce.syncDisplays()
+        
+        self.buildStatusBar()
+        
+        NSApp.setActivationPolicy(.accessory)
     }
 
     func applicationWillResignActive(_ aNotification: Notification) {
-        let connectorService = AppDelegate.container.resolve(ConnectorService.self)!
-               connectorService.onDeactivate()
+        let connectorService = container.resolve(ConnectorService.self)!
+        connectorService.onDeactivate()
     }
     
     func applicationDidBecomeActive(_ notification: Notification) {
-        let connectorService = AppDelegate.container.resolve(ConnectorService.self)!
+        let connectorService = container.resolve(ConnectorService.self)!
         connectorService.onActivate()
+        print("activate")
     }
     
     private func buildStatusBar() {
@@ -74,6 +54,8 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         let titleItem = NSMenuItem()
         titleItem.title = NSLocalizedString("Bright", comment: "123")
         titleItem.isEnabled = false
+        
+        titleItem.action = #selector(self.activate)
 
         statusMenu.insertItem(titleItem, at: 0)
         statusMenu.insertItem(NSMenuItem.separator(), at: 1)
@@ -88,8 +70,14 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         quitItem.action = #selector(self.quit)
     }
     
-    @objc func quit() {
-        let appService = AppDelegate.container.resolve(AppService.self)!
+    @objc private func activate() {
+        let appService = container.resolve(AppService.self)!
+        
+        appService.activate()
+    }
+    
+    @objc private func quit() {
+        let appService = container.resolve(AppService.self)!
         
         appService.quit()
     }

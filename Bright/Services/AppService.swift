@@ -8,7 +8,11 @@
 import Cocoa
 
 class AppService {
-    @objc func quit() {
+    public func quit() {
         NSApplication.shared.terminate(self)
+    }
+    
+    public func activate() {
+        NSApp.activate(ignoringOtherApps: true)
     }
 }
