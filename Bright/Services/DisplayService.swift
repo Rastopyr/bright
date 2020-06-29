@@ -47,10 +47,8 @@ class DisplayService {
         self.displayUpdates$ = PublishSubject()
         self.brightnessUpdate$ = PublishSubject()
         self.displays$ = PublishSubject()
-        
-        
+
         displayService = self
-        
 
         self.displays$ = displayUpdates$.share(replay: 1, scope: .forever).asObservable()
         

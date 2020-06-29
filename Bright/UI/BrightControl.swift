@@ -14,7 +14,7 @@ struct BrightControl: View {
     @State var fillPercent: Double = 0.0;
     
     var displayID: CGDirectDisplayID;
-       var onChange: (_ displayID: CGDirectDisplayID,  _ value: Double ) -> Void;
+    var onChange: (_ displayID: CGDirectDisplayID,  _ value: Double ) -> Void;
 
     private var fillHeight: CGFloat {
         return CONTROL_HEIGHT * CGFloat(self.fillPercent)
