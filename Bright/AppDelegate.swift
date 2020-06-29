@@ -50,9 +50,8 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         return container
     }()
     
-    func applicationWillFinishLaunching(_ notification: Notification) {
+    func applicationDidFinishLaunching(_ notification: Notification) {
         let displaySerivce = AppDelegate.container.resolve(DisplayService.self)!
-        
         
         displaySerivce.subscribeToDisplayChanges()
         displaySerivce.syncDisplays()
