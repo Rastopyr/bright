@@ -13,6 +13,7 @@
 		304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204AD2488DAEA00BD0DB5 /* DisplayService.swift */; };
 		304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204B12488DD7D00BD0DB5 /* AppService.swift */; };
+		305AFBF524AA1AA000DC6143 /* MainContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AFBF424AA1AA000DC6143 /* MainContainer.swift */; };
 		306F0AF324A8A349008C28D7 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 306F0AF124A8A340008C28D7 /* RxRelay.framework */; };
 		306F0AF424A8A349008C28D7 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 306F0AF124A8A340008C28D7 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3075C724247CFAB100614761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C723247CFAB100614761 /* AppDelegate.swift */; };
@@ -73,6 +74,7 @@
 		304204A92488D03200BD0DB5 /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/Mac/Swinject.framework; sourceTree = "<group>"; };
 		304204AD2488DAEA00BD0DB5 /* DisplayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayService.swift; sourceTree = "<group>"; };
 		304204B12488DD7D00BD0DB5 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		305AFBF424AA1AA000DC6143 /* MainContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainer.swift; sourceTree = "<group>"; };
 		306F0AF124A8A340008C28D7 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/Mac/RxRelay.framework; sourceTree = "<group>"; };
 		306F0AF224A8A340008C28D7 /* RxRelay.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RxRelay.framework.dSYM; path = Carthage/Build/Mac/RxRelay.framework.dSYM; sourceTree = "<group>"; };
 		3075C720247CFAB100614761 /* Bright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bright.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,11 +155,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		304204B32488F69600BD0DB5 /* Extensions */ = {
+		305AFBF324AA1A8600DC6143 /* DI */ = {
 			isa = PBXGroup;
 			children = (
+				305AFBF424AA1AA000DC6143 /* MainContainer.swift */,
 			);
-			path = Extensions;
+			path = DI;
 			sourceTree = "<group>";
 		};
 		3075C717247CFAB100614761 = {
@@ -184,7 +187,7 @@
 		3075C722247CFAB100614761 /* Bright */ = {
 			isa = PBXGroup;
 			children = (
-				304204B32488F69600BD0DB5 /* Extensions */,
+				305AFBF324AA1A8600DC6143 /* DI */,
 				300E21482486AE87003905B8 /* Services */,
 				30B9F521247FE9F5009459D2 /* UI */,
 				3075C756247E67F200614761 /* Model */,
@@ -380,6 +383,7 @@
 				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
 				3075C758247E680900614761 /* Structs.swift in Sources */,
 				30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */,
+				305AFBF524AA1AA000DC6143 /* MainContainer.swift in Sources */,
 				304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */,
 				300E21472486A501003905B8 /* BrightControl.swift in Sources */,
 			);
