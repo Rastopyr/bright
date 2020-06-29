@@ -7,24 +7,65 @@
 
 import Cocoa
 import ObjectiveC
-import Swift
+import RxSwift
 
 var displayService: DisplayService!
 
+enum DisplayServiceEventTypes {
+    case DisplaySync, DisplayBrightnessUpdate
+}
+
+struct DisplaySyncEvent {
+    let type = DisplayServiceEventTypes.DisplaySync;
+    let displays: [Display];
+}
+
+struct DisplayBrightnessUpdateEvent {
+    let type = DisplayServiceEventTypes.DisplayBrightnessUpdate;
+    let displayId: CGDirectDisplayID;
+    let displayValue: Double;
+}
+
+struct DisplayServiceState {
+    var displays: [Display];
+}
+
+// displaySync -> DisplaySyncEvent -> displays$
+// displayBrightnessUpdate -> DisplayBrightnessUpdateEvent -> displays$
+
 class DisplayService {
-    var displays: Array<Display> = []
-    
     private let brightnessService: BrightnessSerivce;
     
+    var displays$: Observable<[Display]>;
+    var displayUpdates$: PublishSubject<[Display]>;
+    var brightnessUpdate$: Observable<(displayId: CGDirectDisplayID, brightness: Double)>;
+    
     init(brightnessService: BrightnessSerivce) {
+        
         self.brightnessService = brightnessService
         
+        self.displayUpdates$ = PublishSubject()
+        self.brightnessUpdate$ = PublishSubject()
+        self.displays$ = PublishSubject()
+        
+        
         displayService = self
+        
+
+        self.displays$ = displayUpdates$.share(replay: 1, scope: .forever).asObservable()
+        
+    }
+    
+    private func displaysReducer(state: [Display], event: DisplaySyncEvent) -> [Display] {
+        return []
+    }
+    private func displaysReducer(state: [Display], event: DisplayBrightnessUpdateEvent) -> [Display] {
+        return []
     }
 
     @objc
     func syncDisplays() {
-        displays = NSScreen.screens.map({ (screen: NSScreen) -> Display in
+        let d = NSScreen.screens.map({ (screen: NSScreen) -> Display in
             let displayID = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID)!
             
             let isNative = self.isNativeDisplay(displayID: displayID)
@@ -40,7 +81,9 @@ class DisplayService {
                 order: 0,
                 size: screen.frame
             )
-        })
+        });
+        
+        displayUpdates$.onNext(d);
     }
     
     func subscribeToDisplayChanges() {
@@ -56,7 +99,6 @@ class DisplayService {
     }
     
     private func isNativeDisplay(displayID: UInt32) -> Bool {
-        print(displayID, CGDisplayIsBuiltin(displayID))
         return CGDisplayIsBuiltin(displayID) != 0
     }
 }

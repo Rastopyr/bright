@@ -12,7 +12,7 @@ struct BrightValues {
     var brightness: Float;
 }
 
-struct Display {
+struct Display: Identifiable {
     let id: UInt32;
     let name: String;
     let isNative: Bool;

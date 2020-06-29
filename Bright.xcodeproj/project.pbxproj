@@ -13,19 +13,22 @@
 		304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204AD2488DAEA00BD0DB5 /* DisplayService.swift */; };
 		304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204B12488DD7D00BD0DB5 /* AppService.swift */; };
+		306F0AF324A8A349008C28D7 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 306F0AF124A8A340008C28D7 /* RxRelay.framework */; };
+		306F0AF424A8A349008C28D7 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 306F0AF124A8A340008C28D7 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3075C724247CFAB100614761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C723247CFAB100614761 /* AppDelegate.swift */; };
-		3075C726247CFAB100614761 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C725247CFAB100614761 /* ContentView.swift */; };
 		3075C728247CFAB300614761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C727247CFAB300614761 /* Assets.xcassets */; };
 		3075C72B247CFAB300614761 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C72A247CFAB300614761 /* Preview Assets.xcassets */; };
 		3075C72E247CFAB300614761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3075C72C247CFAB300614761 /* Main.storyboard */; };
 		3075C73A247CFAB300614761 /* BrightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C739247CFAB300614761 /* BrightTests.swift */; };
 		3075C745247CFAB300614761 /* BrightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C744247CFAB300614761 /* BrightUITests.swift */; };
 		3075C758247E680900614761 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C757247E680900614761 /* Structs.swift */; };
-		308290042494044E00693326 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308290022494044500693326 /* RxSwift.framework */; };
-		308290052494044E00693326 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 308290022494044500693326 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		308290072494DF2F00693326 /* WindowSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308290062494DF2F00693326 /* WindowSerivce.swift */; };
+		308290082494F49900693326 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308290022494044500693326 /* RxSwift.framework */; };
+		308290092494F49900693326 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 308290022494044500693326 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; };
 		30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B9F51F247FE7C2009459D2 /* BrightApp.swift */; };
+		30FC6055249C0896002095AA /* ConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FC6054249C0896002095AA /* ConnectorService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +55,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				306F0AF424A8A349008C28D7 /* RxRelay.framework in Embed Frameworks */,
 				30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */,
 				304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */,
-				308290052494044E00693326 /* RxSwift.framework in Embed Frameworks */,
+				308290092494F49900693326 /* RxSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,9 +73,10 @@
 		304204A92488D03200BD0DB5 /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/Mac/Swinject.framework; sourceTree = "<group>"; };
 		304204AD2488DAEA00BD0DB5 /* DisplayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayService.swift; sourceTree = "<group>"; };
 		304204B12488DD7D00BD0DB5 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		306F0AF124A8A340008C28D7 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/Mac/RxRelay.framework; sourceTree = "<group>"; };
+		306F0AF224A8A340008C28D7 /* RxRelay.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RxRelay.framework.dSYM; path = Carthage/Build/Mac/RxRelay.framework.dSYM; sourceTree = "<group>"; };
 		3075C720247CFAB100614761 /* Bright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bright.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3075C723247CFAB100614761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3075C725247CFAB100614761 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3075C727247CFAB300614761 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3075C72A247CFAB300614761 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3075C72D247CFAB300614761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -86,8 +91,10 @@
 		3075C757247E680900614761 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		308290022494044500693326 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		308290032494044500693326 /* RxSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RxSwift.framework.dSYM; path = Carthage/Build/Mac/RxSwift.framework.dSYM; sourceTree = "<group>"; };
+		308290062494DF2F00693326 /* WindowSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSerivce.swift; sourceTree = "<group>"; };
 		30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DDC.framework.dSYM; path = Carthage/Build/Mac/DDC.framework.dSYM; sourceTree = "<group>"; };
 		30B9F51F247FE7C2009459D2 /* BrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightApp.swift; sourceTree = "<group>"; };
+		30FC6054249C0896002095AA /* ConnectorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +102,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				306F0AF324A8A349008C28D7 /* RxRelay.framework in Frameworks */,
 				30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */,
 				304204AA2488D03200BD0DB5 /* Swinject.framework in Frameworks */,
-				308290042494044E00693326 /* RxSwift.framework in Frameworks */,
+				308290082494F49900693326 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +132,8 @@
 				304204AD2488DAEA00BD0DB5 /* DisplayService.swift */,
 				304204B12488DD7D00BD0DB5 /* AppService.swift */,
 				30057A072489875B00F99CB8 /* BrightnessService.swift */,
+				308290062494DF2F00693326 /* WindowSerivce.swift */,
+				30FC6054249C0896002095AA /* ConnectorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -131,6 +141,8 @@
 		304204A72488D02800BD0DB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				306F0AF124A8A340008C28D7 /* RxRelay.framework */,
+				306F0AF224A8A340008C28D7 /* RxRelay.framework.dSYM */,
 				308290022494044500693326 /* RxSwift.framework */,
 				308290032494044500693326 /* RxSwift.framework.dSYM */,
 				30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */,
@@ -177,7 +189,6 @@
 				30B9F521247FE9F5009459D2 /* UI */,
 				3075C756247E67F200614761 /* Model */,
 				3075C723247CFAB100614761 /* AppDelegate.swift */,
-				3075C725247CFAB100614761 /* ContentView.swift */,
 				3075C727247CFAB300614761 /* Assets.xcassets */,
 				3075C72C247CFAB300614761 /* Main.storyboard */,
 				3075C72F247CFAB300614761 /* Info.plist */,
@@ -362,8 +373,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				308290072494DF2F00693326 /* WindowSerivce.swift in Sources */,
 				30057A082489875B00F99CB8 /* BrightnessService.swift in Sources */,
-				3075C726247CFAB100614761 /* ContentView.swift in Sources */,
+				30FC6055249C0896002095AA /* ConnectorService.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
 				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
 				3075C758247E680900614761 /* Structs.swift in Sources */,
@@ -424,6 +436,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -485,6 +498,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_CPP_STATIC_DESTRUCTORS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;

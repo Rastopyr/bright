@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
-import RxSwift
 
 let CONTROL_WIDTH: CGFloat = 96
 let CONTROL_HEIGHT: CGFloat = 232
 
-let scheduler = SerialDispatchQueueScheduler(qos: .default)
-
 struct BrightControl: View {
-    @State var fillPercent: Double = 0.0
+    @State var fillPercent: Double = 0.0;
+    
+    var displayID: CGDirectDisplayID;
+       var onChange: (_ displayID: CGDirectDisplayID,  _ value: Double ) -> Void;
 
     private var fillHeight: CGFloat {
         return CONTROL_HEIGHT * CGFloat(self.fillPercent)
@@ -50,10 +50,11 @@ struct BrightControl: View {
         })
         
         return ZStack {
-            Rectangle().fill(Color.white.opacity(0.5))
+            Rectangle()
+                .fill(Color.white.opacity(0.5))
             Rectangle()
                 .fill(
-                   Color.white.opacity(0.8)
+                   Color.white.opacity(1)
                  )
                 .frame(
                     width: CONTROL_WIDTH,
@@ -63,15 +64,17 @@ struct BrightControl: View {
                 .contentShape(Rectangle())
                 .gesture(dragGuesture)
         }
-        .cornerRadius(CGFloat(10.0))
         .frame(width: CONTROL_WIDTH, height: CONTROL_HEIGHT)
+        .cornerRadius(CGFloat(15.0))
     }
 }
 
 struct BrightControl_Previews: PreviewProvider {
     static var previews: some View {
         BrightControl(
-            fillPercent: 0.5
+            fillPercent: 0.5,
+            displayID: 1,
+            onChange: { _,_ in print("OnChange") }
         )
     }
 }

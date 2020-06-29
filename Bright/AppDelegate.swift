@@ -24,67 +24,48 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         withLength: NSStatusItem.variableLength
     )
     
-    private let container: Container = {
+    public static let container: Container = {
         let container = Container()
         
-        container.register(AppService.self) { _ in AppService() }
-        container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }
-        container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }
+        container.register(AppService.self) { _ in AppService() }.inObjectScope(.container)
+        container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }.inObjectScope(.container)
+        container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }.inObjectScope(.container)
+        container.register(Observable.self, name: "displays$") { c in c.resolve(DisplayService.self)!.displays$ }.inObjectScope(.container)
+       
+        
+        container.register(BrightApp.self) { c in
+            BrightApp()
+        }.inObjectScope(.container)
+        
+        container.register(WindowService.self) { c in WindowService(
+                   mainView: c.resolve(BrightApp.self)!
+               )
+        }.inObjectScope(.container)
+        
+        container.register(ConnectorService.self) { c in ConnectorService(
+            windowService: c.resolve(WindowService.self)!,
+            displayService: c.resolve(DisplayService.self)!
+        )}.inObjectScope(.container)
         
         return container
     }()
+    
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        let displaySerivce = AppDelegate.container.resolve(DisplayService.self)!
+        
+        
+        displaySerivce.subscribeToDisplayChanges()
+        displaySerivce.syncDisplays()
+    }
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        self.buildStatusBar()
-        
-//        var fillPercent$ = Observable<Int>.interval(
-//            .milliseconds(300), scheduler: scheduler
-//        ).subscribe({ event in
-//            print(event)
-//        })
-        
-        let window = NSWindow(
-            contentRect: .init(
-                origin: .zero,
-                size: .init(
-                    width: WINDOW_WIDTH,
-                    height: WINDOW_HEIGHT
-            )),
-            
-            styleMask: [],
-            
-            backing: .buffered,
-            defer: false
-        )
-        
-        let visualEffect = NSVisualEffectView()
-        visualEffect.blendingMode = .behindWindow
-        visualEffect.state = .active
-        visualEffect.material = .appearanceBased
-
-        window.isOpaque = false
-        window.backgroundColor = .clear
-        window.hidesOnDeactivate = true
-
-        let hosting = NSHostingView(rootView: ContentView())
-        window.contentView = visualEffect
-        visualEffect.addSubview(hosting)
-        
-        hosting.setFrameSize(NSSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
-        
-        window.center()
-        window.setIsVisible(true)
-        
-//        let displaySerivce = container.resolve(DisplayService.self)!
-//        
-//        displaySerivce.syncDisplays()
-//        displaySerivce.subscribeToDisplayChanges()
-//        
-//        let brightnessSerivce = container.resolve(BrightnessSerivce.self)!
-//        
-//        displaySerivce.displays.forEach { (display) in
-//            brightnessSerivce.setBrightness(display: display, brightnessValue: 1.0)
-//        }
+    func applicationWillResignActive(_ aNotification: Notification) {
+        let connectorService = AppDelegate.container.resolve(ConnectorService.self)!
+               connectorService.onDeactivate()
+    }
+    
+    func applicationDidBecomeActive(_ notification: Notification) {
+        let connectorService = AppDelegate.container.resolve(ConnectorService.self)!
+        connectorService.onActivate()
     }
     
     private func buildStatusBar() {
@@ -109,15 +90,9 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     }
     
     @objc func quit() {
-        let appService = container.resolve(AppService.self)!
+        let appService = AppDelegate.container.resolve(AppService.self)!
         
         appService.quit()
     }
 }
 
-
-struct AppDelegate_Previews: PreviewProvider {
-    static var previews: some View {
-        BrightApp()
-    }
-}
