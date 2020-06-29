@@ -18,8 +18,10 @@ class WindowService {
     
     func createWindow() {
         if (window !== nil) {
+            window?.makeKeyAndOrderFront(self)
             return;
         }
+        
         window = NSWindow(
             contentRect: .init(
                 origin: .zero,
@@ -41,7 +43,6 @@ class WindowService {
 
         window?.isOpaque = false
         window?.backgroundColor = .clear
-        window?.hidesOnDeactivate = true
         
         let hosting = NSHostingView(rootView: mainView)
 
