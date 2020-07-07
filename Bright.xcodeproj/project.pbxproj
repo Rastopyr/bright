@@ -29,6 +29,8 @@
 		30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; };
 		30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B9F51F247FE7C2009459D2 /* BrightApp.swift */; };
+		30CD53C924B4C55E0035B267 /* SelectControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD53C824B4C55D0035B267 /* SelectControl.swift */; };
+		30CD53CB24B4DE7F0035B267 /* SelectControlRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */; };
 		30FC6055249C0896002095AA /* ConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FC6054249C0896002095AA /* ConnectorService.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +98,8 @@
 		308290062494DF2F00693326 /* WindowSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSerivce.swift; sourceTree = "<group>"; };
 		30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DDC.framework.dSYM; path = Carthage/Build/Mac/DDC.framework.dSYM; sourceTree = "<group>"; };
 		30B9F51F247FE7C2009459D2 /* BrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightApp.swift; sourceTree = "<group>"; };
+		30CD53C824B4C55D0035B267 /* SelectControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControl.swift; sourceTree = "<group>"; };
+		30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControlRow.swift; sourceTree = "<group>"; };
 		30FC6054249C0896002095AA /* ConnectorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +244,8 @@
 			children = (
 				30B9F51F247FE7C2009459D2 /* BrightApp.swift */,
 				300E21462486A501003905B8 /* BrightControl.swift */,
+				30CD53C824B4C55D0035B267 /* SelectControl.swift */,
+				30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -379,12 +385,14 @@
 				308290072494DF2F00693326 /* WindowSerivce.swift in Sources */,
 				30057A082489875B00F99CB8 /* BrightnessService.swift in Sources */,
 				30FC6055249C0896002095AA /* ConnectorService.swift in Sources */,
+				30CD53C924B4C55E0035B267 /* SelectControl.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
 				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
 				3075C758247E680900614761 /* Structs.swift in Sources */,
 				30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */,
 				305AFBF524AA1AA000DC6143 /* MainContainer.swift in Sources */,
 				304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */,
+				30CD53CB24B4DE7F0035B267 /* SelectControlRow.swift in Sources */,
 				300E21472486A501003905B8 /* BrightControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
