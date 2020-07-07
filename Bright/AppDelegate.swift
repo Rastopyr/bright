@@ -44,7 +44,6 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     func applicationDidBecomeActive(_ notification: Notification) {
         let connectorService = container.resolve(ConnectorService.self)!
         connectorService.onActivate()
-        print("activate")
     }
     
     private func buildStatusBar() {
