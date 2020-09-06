@@ -19,7 +19,7 @@ func createWindow<V: View>(
            size: size
         ),
        
-       styleMask: [],
+       styleMask:  [],
        backing: .buffered,
        defer: false
     );
@@ -51,7 +51,7 @@ func createWindow<V: View>(
     visualHosting.layer?.cornerRadius = 14.0;
     
     window.setFrameOrigin(point)
-
+    
     return window;
 }
 
@@ -63,7 +63,8 @@ struct BrightWindow: View {
         size: NSSize,
         point: NSPoint,
         childView: V,
-        isVisiible: Bool
+        isVisiible: Bool,
+        isClosable: Bool = false
     ) {
         print("init")
         self.window = createWindow(
@@ -72,6 +73,15 @@ struct BrightWindow: View {
             childView: childView
         )
         
+        if (isClosable) {
+            window.titleVisibility = .hidden
+            window.titlebarAppearsTransparent = true
+            window.styleMask.insert(.fullSizeContentView)
+            
+            window.styleMask.insert(.closable)
+            window.styleMask.insert(.titled)
+        }
+
         window.setIsVisible(isVisiible)
     }
     
