@@ -12,9 +12,6 @@ import RxSwift
 
 var app: AppDelegate!
 
-let WINDOW_WIDTH = 750;
-let WINDOW_HEIGHT = 315;
-
 
 @NSApplicationMain
 class AppDelegate: NSScreen, NSApplicationDelegate {
@@ -32,8 +29,6 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         displaySerivce.syncDisplays()
         
         self.buildStatusBar()
-        
-        NSApp.setActivationPolicy(.accessory)
     }
 
     func applicationWillResignActive(_ aNotification: Notification) {
@@ -71,6 +66,8 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     
     @objc private func activate() {
         let appService = container.resolve(AppService.self)!
+        
+        
         
         appService.activate()
     }

@@ -31,11 +31,6 @@ struct SelectControlRow: View {
             ))
                 
         }
-        .frame(
-            width: CGFloat(126),
-            height: CGFloat(26),
-            alignment: .trailing
-        )
     }
 }
 

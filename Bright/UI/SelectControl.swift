@@ -19,6 +19,7 @@ struct SelectControl: View {
     
     var body: some View {
         let tapGuesture = TapGesture().onEnded {
+            print("tap")
             self.isOpen = !self.isOpen;
         }
         return ZStack {
@@ -55,7 +56,6 @@ struct SelectControl: View {
                         : rowHeight * list.count
                     )
                 )
-                .clipped()
                 .gesture(tapGuesture)
         }.offset(
             x: 0,

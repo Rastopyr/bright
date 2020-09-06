@@ -8,7 +8,13 @@
 import SwiftUI
 import RxSwift
 
+func getScreenWithMouse() -> NSScreen? {
+  let mouseLocation = NSEvent.mouseLocation
+  let screens = NSScreen.screens
+  let screenWithMouse = (screens.first { NSMouseInRect(mouseLocation, $0.frame, false) })
 
+  return screenWithMouse
+}
 
 class DisplaysBinding: ObservableObject {
     private let disposeBag = DisposeBag();
@@ -26,9 +32,20 @@ struct BrightApp: View {
     @ObservedObject var DI: MainContainer;
     
     var body: some View {
-        return BrightApp.BrightAppView(
-            model: DisplaysBinding(displays$: DI.container.resolve(Observable.self, name: "displays$")!)
-        ).environmentObject(DI);
+        let currentScreen = getScreenWithMouse()
+        
+        
+        let posPoint = NSPoint(
+            x: currentScreen?.frame.origin.x ?? 0,
+            y: currentScreen?.frame.origin.y ?? 0
+        )
+        
+        return BrightWindow(
+            size: NSSize(width: 240, height: 296),
+            point: posPoint,
+            childView: Text("Hello world"),
+            isVisiible: true
+        )
     }
 }
 
@@ -53,7 +70,7 @@ extension BrightApp {
                     
                     SelectControl(
                         list: ["by NightShift", "by time range", "disable"]
-                    )
+                    ).frame(width: 200 , height: 400)   
                 }
             }
         }

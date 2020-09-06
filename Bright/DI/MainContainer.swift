@@ -21,15 +21,15 @@ class MainContainer: ObservableObject {
         container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }.inObjectScope(.container)
         container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }.inObjectScope(.container)
         container.register(Observable.self, name: "displays$") { c in c.resolve(DisplayService.self)!.displays$ }.inObjectScope(.container)
+        
+         container.register(WindowService.self) { c in WindowService(
+                   mainView: c.resolve(BrightApp.self)!
+               )
+        }.inObjectScope(.container)
 
         container.register(BrightApp.self) { c in
             let view = BrightApp(DI: MainContainer.shared)
             return view
-        }.inObjectScope(.container)
-        
-        container.register(WindowService.self) { c in WindowService(
-                   mainView: c.resolve(BrightApp.self)!
-               )
         }.inObjectScope(.container)
         
         container.register(ConnectorService.self) { c in ConnectorService(

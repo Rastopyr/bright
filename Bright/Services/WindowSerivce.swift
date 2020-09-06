@@ -26,8 +26,8 @@ class WindowService {
             contentRect: .init(
                 origin: .zero,
                 size: .init(
-                    width: WINDOW_WIDTH,
-                    height: WINDOW_HEIGHT
+                    width: 0,
+                    height: 0
             )),
             
             styleMask: [],
@@ -49,11 +49,12 @@ class WindowService {
         window?.contentView = visualEffect
         visualEffect.addSubview(hosting)
         
-        hosting.setFrameSize(NSSize(width: WINDOW_WIDTH, height: WINDOW_HEIGHT))
+        hosting.setFrameSize(NSSize(width: 1, height: 1))
         
         window?.center()
         window?.setIsVisible(true)
-        
+
         window?.hidesOnDeactivate = true
+        
     }
 }
