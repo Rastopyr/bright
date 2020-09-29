@@ -24,18 +24,17 @@ class ConnectorService {
     public func onActivate() -> Void {
         self.windowService.createWindow(title: "main")
         self.windowService.updateWindowVisiblState(title: "main", isVisible: true)
-//        self.windowService.updateWindowSize(title: "main", size: NSSize(width: 0, height: 0))
-//        self.windowService.updateWindowSize(title: "main", size: NSSize(width: 1000, height: 1000))
-        self.windowService.updateWindowPosition(title: "main", size: NSPoint(x: 0, y: 1000))
+        self.windowService.updateWindowSize(title: "main", size: NSSize(width: 200, height: 200))
+        self.windowService.updateWindowPosition(title: "main", size: NSPoint(x: 200, y: 200))
         
         let view = NSHostingView(rootView: rootView)
         self.windowService.updateView(title: "main", view: view)
         
-        Observable.interval(RxTimeInterval.milliseconds(150), scheduler: MainScheduler.asyncInstance).take(10).do { (time: Int) in
-            
-            self.windowService.updateWindowSize(title: "main", size: NSSize(width: time * 10, height: time * 100))
-            self.windowService.updateWindowPosition(title: "main", size: NSPoint(x: 0, y: time * 100))
-        }.subscribe().disposed(by: disposeBag)
+//        Observable.interval(RxTimeInterval.milliseconds(150), scheduler: MainScheduler.asyncInstance).take(10).do { (time: Int) in
+//
+//            self.windowService.updateWindowSize(title: "main", size: NSSize(width: time * 10, height: time * 100))
+//            self.windowService.updateWindowPosition(title: "main", size: NSPoint(x: 0, y: time * 100))
+//        }.subscribe().disposed(by: disposeBag)
         
         self.displayService.syncDisplays()
         

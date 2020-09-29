@@ -8,75 +8,6 @@
 import Cocoa
 import RxSwift
 
-class WindowInstance {
-    private let window: NSWindow;
-    public let title: String;
-    private let disposeBag = DisposeBag()
-    
-    public let onPositionChange$: Observable<NSPoint>;
-    public let onSizeChange$: Observable<NSSize>;
-    
-    public let position$: PublishSubject<NSPoint>;
-    public let size$: PublishSubject<NSSize>;
-    
-    public let isVisible$: PublishSubject<Bool>;
-    
-    init(title: String) {
-        self.position$ = PublishSubject<NSPoint>();
-        self.size$ = PublishSubject<NSSize>();
-        
-        self.isVisible$ = PublishSubject<Bool>();
-        
-        self.onSizeChange$ = self.size$.asObservable();
-        self.onPositionChange$ = self.position$.asObservable();
-        
-        self.title = title;
-        self.window = WindowInstance.createWndow();
-        
-        self.size$.subscribe(onNext: { (newSize) in
-            self.window.setFrame(NSRect(x: self.window.frame.origin.x, y: self.window.frame.origin.y, width: newSize.width, height: newSize.height), display: true, animate: true)
-        }).disposed(by: disposeBag)
-        
-        self.position$.subscribe(onNext: { (newPoint) in
-            self.window.setFrameTopLeftPoint(newPoint)
-        }).disposed(by: disposeBag)
-        
-        self.isVisible$.subscribe(onNext: { (isVisible) in
-            self.window.setIsVisible(isVisible);
-        }).disposed(by: disposeBag)
-    }
-    
-    public func setView(view: NSView) -> Void {
-        window.contentView = view
-    }
-    
-    private static func createWndow() -> NSWindow {
-        let newWindow = NSWindow(
-            contentRect: .init(
-                origin: .zero,
-                size: .init(
-                    width: 0,
-                    height: 0
-            )),
-            
-            styleMask: [],
-            
-            backing: .buffered,
-            defer: false
-        )
-        
-        let visualEffect = NSVisualEffectView()
-        visualEffect.blendingMode = .behindWindow
-        visualEffect.state = .active
-        visualEffect.material = .ultraDark
-
-        newWindow.isOpaque = false
-        newWindow.backgroundColor = .clear
-        
-        return newWindow
-    }
-}
-
 struct CreateWindowActionBody {
     let title: String;
 }
@@ -176,7 +107,7 @@ func reduceState(state: WindowServiceState, body: WindowViewStateActionBody) thr
        throw Errors.windowNotExist(title)
     }
 
-    win!.setView(view: view)
+    win?.view$.onNext(view)
 
     return state
 }
@@ -205,11 +136,11 @@ class WindowService {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private let newWindow$: PublishSubject<String>;
-    private let isVisible$: PublishSubject<(title: String, isVisible: Bool)>;
-    private let size$: PublishSubject<(title: String, size: NSSize)>;
-    private let view$: PublishSubject<(title: String, view: NSView)>;
-    private let position$: PublishSubject<(title: String, point: NSPoint)>;
+    private let newWindow$: PublishSubject<String>
+    private let isVisible$: PublishSubject<(title: String, isVisible: Bool)>
+    private let size$: PublishSubject<(title: String, size: NSSize)>
+    private let view$: PublishSubject<(title: String, view: NSView)>
+    private let position$: PublishSubject<(title: String, point: NSPoint)>
     
     init() {
         self.newWindow$ = PublishSubject<String>()

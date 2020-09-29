@@ -42,6 +42,7 @@
 		307D2E052517E3D9001D21EA /* BrightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307D2E042517E3D9001D21EA /* BrightUITests.swift */; };
 		308290072494DF2F00693326 /* WindowSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308290062494DF2F00693326 /* WindowSerivce.swift */; };
 		308290092494F49900693326 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 308290022494044500693326 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		308410672523B45600016E55 /* WindowInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308410662523B45600016E55 /* WindowInstance.swift */; };
 		30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; };
 		30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B9F51F247FE7C2009459D2 /* BrightApp.swift */; };
@@ -136,6 +137,7 @@
 		308290022494044500693326 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		308290032494044500693326 /* RxSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RxSwift.framework.dSYM; path = Carthage/Build/Mac/RxSwift.framework.dSYM; sourceTree = "<group>"; };
 		308290062494DF2F00693326 /* WindowSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSerivce.swift; sourceTree = "<group>"; };
+		308410662523B45600016E55 /* WindowInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowInstance.swift; sourceTree = "<group>"; };
 		30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DDC.framework.dSYM; path = Carthage/Build/Mac/DDC.framework.dSYM; sourceTree = "<group>"; };
 		30B9F51F247FE7C2009459D2 /* BrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightApp.swift; sourceTree = "<group>"; };
 		30CD53C824B4C55D0035B267 /* SelectControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControl.swift; sourceTree = "<group>"; };
@@ -186,10 +188,10 @@
 		300E21482486AE87003905B8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				308410652523B44000016E55 /* WinowManager */,
 				304204AD2488DAEA00BD0DB5 /* DisplayService.swift */,
 				304204B12488DD7D00BD0DB5 /* AppService.swift */,
 				30057A072489875B00F99CB8 /* BrightnessService.swift */,
-				308290062494DF2F00693326 /* WindowSerivce.swift */,
 				30FC6054249C0896002095AA /* ConnectorService.swift */,
 			);
 			path = Services;
@@ -298,6 +300,15 @@
 				3075C757247E680900614761 /* Structs.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		308410652523B44000016E55 /* WinowManager */ = {
+			isa = PBXGroup;
+			children = (
+				308290062494DF2F00693326 /* WindowSerivce.swift */,
+				308410662523B45600016E55 /* WindowInstance.swift */,
+			);
+			path = WinowManager;
 			sourceTree = "<group>";
 		};
 		30B9F521247FE9F5009459D2 /* UI */ = {
@@ -455,6 +466,7 @@
 				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
 				3075C758247E680900614761 /* Structs.swift in Sources */,
 				30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */,
+				308410672523B45600016E55 /* WindowInstance.swift in Sources */,
 				305AFBF524AA1AA000DC6143 /* MainContainer.swift in Sources */,
 				304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */,
 				30CD53CB24B4DE7F0035B267 /* SelectControlRow.swift in Sources */,
