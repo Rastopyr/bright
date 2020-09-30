@@ -76,18 +76,19 @@ class WindowInstance {
                     visualEffect.blendingMode = .behindWindow
                     visualEffect.state = .active
                     visualEffect.material = .ultraDark
-                    
+
                     visualEffect.setFrameSize(NSSize(width: win.frame.width, height: win.frame.height))
                     view.setFrameSize(NSSize(width: win.frame.width, height: win.frame.height))
-                    
+
                     let parentView = NSView();
-                    
+
                     parentView.addSubview(visualEffect)
                     parentView.addSubview(view)
-                    
+
                     parentView.wantsLayer = true
-                    parentView.layer?.cornerRadius = 15.0
+                    parentView.layer?.cornerRadius = 14.0
                     parentView.layer?.masksToBounds = true
+
                     
                     win.contentView = parentView
                     
@@ -116,18 +117,41 @@ class WindowInstance {
             defer: false
         )
 
-        newWindow.showsToolbarButton = false
+//        newWindow.showsToolbarButton = false
+        
+//        if options.hasCloseButton {
+//
+//            newWindow.styleMask.insert(.closable)
+//            newWindow.styleMask.insert(.titled)
+//
+//            newWindow.standardWindowButton(NSWindow.ButtonType.miniaturizeButton)?.isHidden = true
+//            newWindow.standardWindowButton(NSWindow.ButtonType.zoomButton)?.isHidden = true
+//
+//
+//            newWindow.toolbar?.isVisible = false
+//            newWindow.titlebarAppearsTransparent = true
+//            newWindow.titleVisibility = .hidden
+//
+//            newWindow.appearance = NSAppearance(appearanceNamed: NSAppearance.Name.vibrantDark, bundle: nil)
+//
+//
+//        }
+//
+//        newWindow.isMovableByWindowBackground = options.draggable
         
         if options.hasCloseButton {
-            newWindow.styleMask = [
-                .titled, .closable
-            ]
+            newWindow.styleMask.insert(.closable)
+            newWindow.styleMask.insert(.titled)
+            newWindow.styleMask.insert(.fullSizeContentView)
             
             newWindow.titlebarAppearsTransparent = true
             newWindow.titleVisibility = .hidden
+
+            newWindow.standardWindowButton(.miniaturizeButton)!.isHidden = true
+            newWindow.standardWindowButton(.zoomButton)!.isHidden = true
         }
-        
-        newWindow.isMovableByWindowBackground = options.draggable
+
+        newWindow.isMovableByWindowBackground = true
 
         newWindow.isOpaque = false
         newWindow.backgroundColor = .clear

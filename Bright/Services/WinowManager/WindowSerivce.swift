@@ -203,7 +203,7 @@ class WindowService {
         self.view$.onNext(( title, view ))
     }
     
-    public func updateWindowPosition(title: String, size: NSPoint) {
-        self.position$.onNext((title: title, point: size))
+    public func updateWindowPosition(title: String, point: NSPoint) {
+        self.position$.onNext((title: title, point: point))
     }
 }

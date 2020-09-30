@@ -34,7 +34,6 @@ struct BrightApp: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Rectangle().fill(Color.clear).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                 Text("Hello Bright")
             }
         }
