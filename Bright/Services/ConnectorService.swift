@@ -22,7 +22,7 @@ class ConnectorService {
     }
     
     public func onActivate() -> Void {
-        self.windowService.createWindow(title: "main")
+        self.windowService.createWindow(options: CreateWindowOptions(hasCloseButton: false, draggable: true, title: "main"))
         self.windowService.updateWindowVisiblState(title: "main", isVisible: true)
         self.windowService.updateWindowSize(title: "main", size: NSSize(width: 200, height: 200))
         self.windowService.updateWindowPosition(title: "main", size: NSPoint(x: 200, y: 200))

@@ -9,7 +9,7 @@ import Cocoa
 import RxSwift
 
 struct CreateWindowActionBody {
-    let title: String;
+    let options: CreateWindowOptions;
 }
 
 struct WindowVisibleStateActionBody {
@@ -57,13 +57,13 @@ extension Dictionary {
 }
 
 func reduceState(state: WindowServiceState, body: CreateWindowActionBody) throws -> WindowServiceState {
-    let title = body.title
+    let options = body.options
 
-    if (state[title] != nil) {
-        throw Errors.windowAlreadyCreated(title)
+    if (state[options.title] != nil) {
+        throw Errors.windowAlreadyCreated(options.title)
     }
 
-    return state.set(title, WindowInstance(title: title))
+    return state.set(options.title, WindowInstance(options: options))
 }
 
 func reduceState(state: WindowServiceState, body: WindowVisibleStateActionBody) throws -> WindowServiceState {
@@ -136,22 +136,22 @@ class WindowService {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
-    private let newWindow$: PublishSubject<String>
+    private let newWindow$: PublishSubject<CreateWindowOptions>
     private let isVisible$: PublishSubject<(title: String, isVisible: Bool)>
     private let size$: PublishSubject<(title: String, size: NSSize)>
     private let view$: PublishSubject<(title: String, view: NSView)>
     private let position$: PublishSubject<(title: String, point: NSPoint)>
     
     init() {
-        self.newWindow$ = PublishSubject<String>()
+        self.newWindow$ = PublishSubject<CreateWindowOptions>()
         self.isVisible$ = PublishSubject<(title: String, isVisible: Bool)>()
         self.size$ = PublishSubject<(title: String, size: NSSize)>()
         self.view$ = PublishSubject<(title: String, view: NSView)>()
         self.position$ = PublishSubject<(title: String, point: NSPoint)>()
     
         self.state$ = Observable.merge(
-            self.newWindow$.map({ title in
-                return Event.createWindow(CreateWindowActionBody(title: title))
+            self.newWindow$.map({ options in
+                return Event.createWindow(CreateWindowActionBody(options: options))
             }),
             
             self.isVisible$.map({ payload in
@@ -187,8 +187,8 @@ class WindowService {
         self.state$.subscribe().disposed(by: disposeBag)
     }
     
-    public func createWindow(title: String) {
-        self.newWindow$.onNext(title);
+    public func createWindow(options: CreateWindowOptions) {
+        self.newWindow$.onNext(options);
     }
     
     public func updateWindowVisiblState(title: String, isVisible: Bool) {

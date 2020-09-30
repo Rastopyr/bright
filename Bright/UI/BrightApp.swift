@@ -32,9 +32,11 @@ struct BrightApp: View {
     @ObservedObject var DI: MainContainer;
     
     var body: some View {
-        return ZStack {
-            Rectangle().fill(Color.green)
-            Text("Hello Bright")
+        GeometryReader { geometry in
+            ZStack {
+                Rectangle().fill(Color.clear).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                Text("Hello Bright")
+            }
         }
     }
 }
@@ -45,7 +47,7 @@ extension BrightApp {
         
         var body: some View {
             return ZStack {
-                Rectangle().fill(Color.clear)
+                Rectangle().fill(Color.white)
                 HStack {
                     ForEach(model.displays, id: \.id) { (display: Display) in
                         VStack {

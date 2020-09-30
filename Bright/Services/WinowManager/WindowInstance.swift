@@ -16,6 +16,12 @@ enum Events {
     case updateVisibility(Bool)
 }
 
+struct CreateWindowOptions {
+    let hasCloseButton: Bool;
+    let draggable: Bool;
+    let title: String;
+}
+
 class WindowInstance {
     public let title: String;
     private let disposeBag = DisposeBag()
@@ -31,7 +37,7 @@ class WindowInstance {
     
     public let isVisible$: PublishSubject<Bool>;
     
-    init(title: String) {
+    init(options: CreateWindowOptions) {
         self.position$ = PublishSubject<NSPoint>();
         self.size$ = PublishSubject<NSSize>();
         self.view$ = PublishSubject<NSView>();
@@ -40,14 +46,14 @@ class WindowInstance {
         self.onSizeChange$ = self.size$.asObservable();
         self.onPositionChange$ = self.position$.asObservable();
         
-        self.title = title;
+        self.title = options.title;
         
         self.state$ = Observable.merge(
             self.size$.map({ Events.updateSize($0) }),
             self.position$.map({ Events.updatePosition($0) }),
             self.view$.map({ Events.updateView($0) }),
             self.isVisible$.map({ Events.updateVisibility($0) })
-        ).scan(WindowInstance.createWndow(), accumulator: { (win: NSWindow, event: Events) -> NSWindow in
+        ).scan(WindowInstance.createWndow(options: options), accumulator: { (win: NSWindow, event: Events) -> NSWindow in
             switch (event) {
                 case let .updateSize(size):
                     win.setFrame(
@@ -71,9 +77,20 @@ class WindowInstance {
                     visualEffect.state = .active
                     visualEffect.material = .ultraDark
                     
-                    visualEffect.addSubview(view)
+                    visualEffect.setFrameSize(NSSize(width: win.frame.width, height: win.frame.height))
+                    view.setFrameSize(NSSize(width: win.frame.width, height: win.frame.height))
                     
-                    win.contentView =  visualEffect
+                    let parentView = NSView();
+                    
+                    parentView.addSubview(visualEffect)
+                    parentView.addSubview(view)
+                    
+                    parentView.wantsLayer = true
+                    parentView.layer?.cornerRadius = 15.0
+                    parentView.layer?.masksToBounds = true
+                    
+                    win.contentView = parentView
+                    
                     return win
                 case let .updateVisibility(isVisible):
                     win.setIsVisible(isVisible)
@@ -84,7 +101,7 @@ class WindowInstance {
         self.state$.subscribe().disposed(by: disposeBag)
     }
     
-    private static func createWndow() -> NSWindow {
+    private static func createWndow(options: CreateWindowOptions) -> NSWindow {
         let newWindow = NSWindow(
             contentRect: .init(
                 origin: .zero,
@@ -93,20 +110,24 @@ class WindowInstance {
                     height: 0
             )),
             
-            styleMask: [.titled, .closable, .miniaturizable, .texturedBackground, .resizable, .fullSizeContentView],
+            styleMask: [],
             
             backing: .buffered,
             defer: false
         )
+
+        newWindow.showsToolbarButton = false
         
-        newWindow.titlebarAppearsTransparent = true
-        newWindow.titleVisibility = .hidden
+        if options.hasCloseButton {
+            newWindow.styleMask = [
+                .titled, .closable
+            ]
+            
+            newWindow.titlebarAppearsTransparent = true
+            newWindow.titleVisibility = .hidden
+        }
         
-        newWindow.standardWindowButton(.miniaturizeButton)!.isHidden = true
-        newWindow.standardWindowButton(.zoomButton)!.isHidden = true
-        
-        newWindow.isMovableByWindowBackground = true
-    
+        newWindow.isMovableByWindowBackground = options.draggable
 
         newWindow.isOpaque = false
         newWindow.backgroundColor = .clear
