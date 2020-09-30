@@ -47,7 +47,7 @@ class WindowInstance {
             self.position$.map({ Events.updatePosition($0) }),
             self.view$.map({ Events.updateView($0) }),
             self.isVisible$.map({ Events.updateVisibility($0) })
-        ).scan(WindowInstance.createWndow()) { (win: NSWindow, event: Events) -> NSWindow in
+        ).scan(WindowInstance.createWndow(), accumulator: { (win: NSWindow, event: Events) -> NSWindow in
             switch (event) {
                 case let .updateSize(size):
                     win.setFrame(
@@ -58,7 +58,7 @@ class WindowInstance {
                             height: size.height
                         ),
                         display: true,
-                        animate: true
+                        animate: false
                     )
                     
                     return win;
@@ -66,13 +66,20 @@ class WindowInstance {
                     win.setFrameTopLeftPoint(point)
                     return win
                 case let .updateView(view):
-                    win.contentView =  view
+                    let visualEffect = NSVisualEffectView()
+                    visualEffect.blendingMode = .behindWindow
+                    visualEffect.state = .active
+                    visualEffect.material = .ultraDark
+                    
+                    visualEffect.addSubview(view)
+                    
+                    win.contentView =  visualEffect
                     return win
                 case let .updateVisibility(isVisible):
                     win.setIsVisible(isVisible)
                     return win
             }
-        }
+        }).share()
         
         self.state$.subscribe().disposed(by: disposeBag)
     }
@@ -86,19 +93,25 @@ class WindowInstance {
                     height: 0
             )),
             
-            styleMask: [],
+            styleMask: [.titled, .closable, .miniaturizable, .texturedBackground, .resizable, .fullSizeContentView],
             
             backing: .buffered,
             defer: false
         )
         
-        let visualEffect = NSVisualEffectView()
-        visualEffect.blendingMode = .behindWindow
-        visualEffect.state = .active
-        visualEffect.material = .ultraDark
+        newWindow.titlebarAppearsTransparent = true
+        newWindow.titleVisibility = .hidden
+        
+        newWindow.standardWindowButton(.miniaturizeButton)!.isHidden = true
+        newWindow.standardWindowButton(.zoomButton)!.isHidden = true
+        
+        newWindow.isMovableByWindowBackground = true
+    
 
         newWindow.isOpaque = false
         newWindow.backgroundColor = .clear
+        
+        newWindow.makeKeyAndOrderFront(nil)
         
         return newWindow
     }

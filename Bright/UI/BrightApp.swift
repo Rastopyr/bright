@@ -32,16 +32,8 @@ struct BrightApp: View {
     @ObservedObject var DI: MainContainer;
     
     var body: some View {
-//        let currentScreen = getScreenWithMouse()
-        
-        
-//        let posPoint = NSPoint(
-//            x: currentScreen?.frame.origin.x ?? 0,
-//            y: currentScreen?.frame.origin.y ?? 0
-//        )
-//
         return ZStack {
-            Rectangle().fill(Color.red)
+            Rectangle().fill(Color.green)
             Text("Hello Bright")
         }
     }

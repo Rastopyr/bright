@@ -182,7 +182,7 @@ class WindowService {
                 case let .windowPosition(value):
                     return try reduceState(state: state, body: value)
             }
-        })
+        }).share()
         
         self.state$.subscribe().disposed(by: disposeBag)
     }

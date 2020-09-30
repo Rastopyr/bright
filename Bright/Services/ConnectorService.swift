@@ -27,7 +27,7 @@ class ConnectorService {
         self.windowService.updateWindowSize(title: "main", size: NSSize(width: 200, height: 200))
         self.windowService.updateWindowPosition(title: "main", size: NSPoint(x: 200, y: 200))
         
-        let view = NSHostingView(rootView: rootView)
+        let view = NSHostingView(rootView: rootView.edgesIgnoringSafeArea(Edge.Set.top))
         self.windowService.updateView(title: "main", view: view)
         
 //        Observable.interval(RxTimeInterval.milliseconds(150), scheduler: MainScheduler.asyncInstance).take(10).do { (time: Int) in
