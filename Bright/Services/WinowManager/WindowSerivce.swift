@@ -27,6 +27,11 @@ struct WindowPositionActionBody {
     let point: NSPoint;
 }
 
+struct WindowFrameStateActionBody {
+    let title: String;
+    let rect: NSRect;
+}
+
 struct WindowViewStateActionBody {
     let title: String;
     let view: NSView;
@@ -38,6 +43,10 @@ enum Event {
     case windowSize(WindowSizeStateActionBody)
     case windowPosition(WindowPositionActionBody)
     case windowView(WindowViewStateActionBody)
+    
+    case animateWindowSize(WindowSizeStateActionBody)
+    case animateWindowPosition(WindowPositionActionBody)
+    case animateWindowFrame(WindowFrameStateActionBody)
 }
 
 enum Errors: Error {
@@ -97,6 +106,21 @@ func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody) thr
     return state;
 }
 
+func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody, animate: Bool) throws -> WindowServiceState {
+    let title = body.title
+    let size = body.size
+
+    let win: WindowInstance? = state[title]
+
+    if (win == nil) {
+        throw Errors.windowNotExist(title)
+    }
+
+    win!.animateSize$.onNext(size)
+
+    return state;
+}
+
 func reduceState(state: WindowServiceState, body: WindowViewStateActionBody) throws -> WindowServiceState {
     let title = body.title
     let view = body.view
@@ -127,6 +151,36 @@ func reduceState(state: WindowServiceState, body: WindowPositionActionBody) thro
     return state
 }
 
+func reduceState(state: WindowServiceState, body: WindowPositionActionBody, animate: Bool) throws -> WindowServiceState {
+    let title = body.title
+    let point = body.point
+
+    let win: WindowInstance? = state[title]
+
+    if (win == nil) {
+       throw Errors.windowNotExist(title)
+    }
+
+    win?.animatePosition$.onNext(point)
+
+    return state
+}
+
+func reduceState(state: WindowServiceState, body: WindowFrameStateActionBody) throws -> WindowServiceState {
+    let title = body.title
+    let rect = body.rect
+
+    let win: WindowInstance? = state[title]
+
+    if (win == nil) {
+       throw Errors.windowNotExist(title)
+    }
+
+    win?.animateFrame$.onNext(rect)
+
+    return state
+}
+
 func reduceState(state: WindowServiceState, body: Any) -> WindowServiceState {
     return state
 }
@@ -142,12 +196,21 @@ class WindowService {
     private let view$: PublishSubject<(title: String, view: NSView)>
     private let position$: PublishSubject<(title: String, point: NSPoint)>
     
+    private let animateSize$: PublishSubject<(title: String, size: NSSize)>
+    private let animatePosition$: PublishSubject<(title: String, point: NSPoint)>
+    private let animateFrame$: PublishSubject<(title: String, rect: NSRect)>
+    
     init() {
         self.newWindow$ = PublishSubject<CreateWindowOptions>()
         self.isVisible$ = PublishSubject<(title: String, isVisible: Bool)>()
         self.size$ = PublishSubject<(title: String, size: NSSize)>()
         self.view$ = PublishSubject<(title: String, view: NSView)>()
         self.position$ = PublishSubject<(title: String, point: NSPoint)>()
+        
+        self.animateSize$ = PublishSubject<(title: String, size: NSSize)>()
+        self.animatePosition$ = PublishSubject<(title: String, point: NSPoint)>()
+        
+        self.animateFrame$ = PublishSubject<(title: String, rect: NSRect)>()
     
         self.state$ = Observable.merge(
             self.newWindow$.map({ options in
@@ -168,19 +231,37 @@ class WindowService {
             
             self.position$.map({ payload in
                 return Event.windowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
+            }),
+            
+            self.animateSize$.map({ payload in
+                return Event.animateWindowSize(WindowSizeStateActionBody(title: payload.title, size: payload.size))
+            }),
+            
+            self.animatePosition$.map({ payload in
+                return Event.animateWindowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
+            }),
+            
+            self.animateFrame$.map({ payload in
+                return Event.animateWindowFrame(WindowFrameStateActionBody(title: payload.title, rect: payload.rect))
             })
         ).scan(WindowServiceState(), accumulator: { (state, event: Event) in
             switch(event) {
-                case let .createWindow(value):
-                    return try reduceState(state: state, body: value)
-                case let .windowVisible(value):
-                    return try reduceState(state: state, body: value)
-                case let .windowSize(value):
-                    return try reduceState(state: state, body: value)
-                case let .windowView(value):
-                    return try reduceState(state: state, body: value)
-                case let .windowPosition(value):
-                    return try reduceState(state: state, body: value)
+                case .createWindow(let windowOptions):
+                    return try reduceState(state: state, body: windowOptions)
+                case .windowVisible(let isVisible):
+                    return try reduceState(state: state, body: isVisible)
+                case .windowSize(let size):
+                    return try reduceState(state: state, body: size)
+                case .windowView(let view):
+                    return try reduceState(state: state, body: view)
+                case .windowPosition(let point):
+                    return try reduceState(state: state, body: point)
+                case .animateWindowSize(let size):
+                    return try reduceState(state: state, body: size, animate: true)
+                case .animateWindowPosition(let point):
+                    return try reduceState(state: state, body: point, animate: true)
+            case .animateWindowFrame(let rect):
+                return try reduceState(state: state, body: rect)
             }
         }).share()
         
@@ -197,6 +278,18 @@ class WindowService {
     
     public func updateWindowSize(title: String, size: NSSize) {
         self.size$.onNext((title, size))
+    }
+    
+    public func animateWindowSize(title: String, size: NSSize) {
+        self.animateSize$.onNext((title, size))
+    }
+    
+    public func animateFrame(title: String, rect: NSRect) {
+        self.animateFrame$.onNext((title, rect))
+    }
+    
+    public func animateWindowPosition(title: String, point: NSPoint) {
+        self.animatePosition$.onNext((title, point))
     }
     
     public func updateView(title: String, view: NSView) {
