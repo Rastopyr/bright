@@ -24,7 +24,7 @@ class DisplaysBinding: ObservableObject {
     init(displays$: Observable<[Display]>) {
         displays$.subscribe(onNext: {
             self.displays = $0
-        }, onDisposed: { print("dispose") }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
 }
 

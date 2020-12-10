@@ -28,7 +28,7 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         connectorService.onStart()
         
         displaySerivce.subscribeToDisplayChanges()
-        displaySerivce.syncDisplays()
+//        displaySerivce.syncDisplays()
         
         NSApplication.shared.setActivationPolicy(.accessory)
         
@@ -36,7 +36,6 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     }
 
     func applicationWillResignActive(_ aNotification: Notification) {
-        print(aNotification)
         let connectorService = container.resolve(ConnectorService.self)!
         connectorService.onDeactivate()
     }

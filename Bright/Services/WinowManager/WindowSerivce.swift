@@ -16,9 +16,8 @@ struct DestroyWindowActionBody {
     let options: DestroyWindowOptions;
 }
 
-struct WindowVisibleStateActionBody {
+struct ShowWindowActionBody {
     let title: String;
-    let isVisible: Bool;
 }
 
 struct WindowSizeStateActionBody {
@@ -44,7 +43,7 @@ struct WindowViewStateActionBody {
 enum Event {
     case createWindow(CreateWindowActionBody)
     case destroyWindow(DestroyWindowActionBody)
-    case windowVisible(WindowVisibleStateActionBody)
+    case windowVisible(ShowWindowActionBody)
     case windowSize(WindowSizeStateActionBody)
     case windowPosition(WindowPositionActionBody)
     case windowView(WindowViewStateActionBody)
@@ -98,26 +97,19 @@ func reduceState(state: WindowServiceState, body: DestroyWindowActionBody) throw
     
     win?.destroy$.onNext(());
     
-    let newState = state.delete(options.title)
-    
-    print(newState)
-    
-    return newState
+    return state.delete(options.title)
 }
 
-func reduceState(state: WindowServiceState, body: WindowVisibleStateActionBody) throws -> WindowServiceState {
+func reduceState(state: WindowServiceState, body: ShowWindowActionBody) throws -> WindowServiceState {
     let title = body.title
-    let isVisible = body.isVisible
 
     let win: WindowInstance? = state[title]
 
     if (win == nil) {
        throw Errors.windowNotExist(title)
     }
-    
-    print(state)
 
-    win?.isVisible$.onNext(isVisible)
+    win?.show$.onNext(())
 
     return state;
 }
@@ -224,8 +216,7 @@ class WindowService {
     
     private let newWindow$: PublishSubject<CreateWindowOptions>
     private let destroyWindow$: PublishSubject<DestroyWindowOptions>
-    
-    private let isVisible$: PublishSubject<(title: String, isVisible: Bool)>
+    private let showWindow$: PublishSubject<(String)>
     private let size$: PublishSubject<(title: String, size: NSSize)>
     private let view$: PublishSubject<(title: String, view: NSView)>
     private let position$: PublishSubject<(title: String, point: NSPoint)>
@@ -235,52 +226,52 @@ class WindowService {
     private let animateFrame$: PublishSubject<(title: String, rect: NSRect)>
     
     init() {
-        self.destroyWindow$ = PublishSubject<DestroyWindowOptions>()
-        self.newWindow$ = PublishSubject<CreateWindowOptions>()
-        self.isVisible$ = PublishSubject<(title: String, isVisible: Bool)>()
-        self.size$ = PublishSubject<(title: String, size: NSSize)>()
-        self.view$ = PublishSubject<(title: String, view: NSView)>()
-        self.position$ = PublishSubject<(title: String, point: NSPoint)>()
+        destroyWindow$ = PublishSubject<DestroyWindowOptions>()
+        newWindow$ = PublishSubject<CreateWindowOptions>()
+        showWindow$ = PublishSubject<(String)>()
+        size$ = PublishSubject<(title: String, size: NSSize)>()
+        view$ = PublishSubject<(title: String, view: NSView)>()
+        position$ = PublishSubject<(title: String, point: NSPoint)>()
         
-        self.animateSize$ = PublishSubject<(title: String, size: NSSize)>()
-        self.animatePosition$ = PublishSubject<(title: String, point: NSPoint)>()
+        animateSize$ = PublishSubject<(title: String, size: NSSize)>()
+        animatePosition$ = PublishSubject<(title: String, point: NSPoint)>()
         
-        self.animateFrame$ = PublishSubject<(title: String, rect: NSRect)>()
+        animateFrame$ = PublishSubject<(title: String, rect: NSRect)>()
     
-        self.state$ = Observable.merge(
-            self.newWindow$.map({ options in
+        state$ = Observable.merge(
+            newWindow$.map({ options in
                 return Event.createWindow(CreateWindowActionBody(options: options))
             }),
             
-            self.destroyWindow$.map({ options in
+            destroyWindow$.map({ options in
                 return Event.destroyWindow(DestroyWindowActionBody(options: options))
             }),
             
-            self.isVisible$.map({ payload in
-                return Event.windowVisible(WindowVisibleStateActionBody(title: payload.title, isVisible: payload.isVisible))
+            showWindow$.map({ title in
+                return Event.windowVisible(ShowWindowActionBody(title: title))
             }),
 
-            self.size$.map({ payload in
+            size$.map({ payload in
                 return Event.windowSize(WindowSizeStateActionBody(title: payload.title, size: payload.size))
             }),
 
-            self.view$.map({ payload in
+            view$.map({ payload in
                 return Event.windowView(WindowViewStateActionBody(title: payload.title, view: payload.view))
             }),
             
-            self.position$.map({ payload in
+            position$.map({ payload in
                 return Event.windowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
             }),
             
-            self.animateSize$.map({ payload in
+            animateSize$.map({ payload in
                 return Event.animateWindowSize(WindowSizeStateActionBody(title: payload.title, size: payload.size))
             }),
             
-            self.animatePosition$.map({ payload in
+            animatePosition$.map({ payload in
                 return Event.animateWindowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
             }),
             
-            self.animateFrame$.map({ payload in
+            animateFrame$.map({ payload in
                 return Event.animateWindowFrame(WindowFrameStateActionBody(title: payload.title, rect: payload.rect))
             })
         ).scan(WindowServiceState(), accumulator: { (state, event: Event) in
@@ -305,8 +296,19 @@ class WindowService {
                     return try reduceState(state: state, body: rect)
             }
         }).share()
-        
-        self.state$.subscribe().disposed(by: disposeBag)
+
+        disposeBag.insert([
+            destroyWindow$,
+            newWindow$,
+            showWindow$,
+            size$,
+            view$,
+            position$,
+            animateSize$,
+            animatePosition$,
+            animateFrame$,
+            state$.subscribe()
+        ])
     }
     
     public func createWindow(options: CreateWindowOptions) {
@@ -318,7 +320,7 @@ class WindowService {
     }
     
     public func updateWindowVisiblState(title: String, isVisible: Bool) {
-        self.isVisible$.onNext((title, isVisible))
+        self.showWindow$.onNext((title))
     }
     
     public func updateWindowSize(title: String, size: NSSize) {

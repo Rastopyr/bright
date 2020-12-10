@@ -5,7 +5,7 @@
 //  Created by Roman on 29.06.2020.
 //
 
-
+import AppKit
 import Swinject
 import RxSwift
 
@@ -17,7 +17,8 @@ class MainContainer: ObservableObject {
     public let container: Container = {
         let container = Container()
         
-        container.register(AppService.self) { _ in AppService() }.inObjectScope(.container)
+        container.register(NSApplication.self) { _ in NSApp }.inObjectScope(.container)
+        container.register(AppService.self) { c in AppService(appInstance: c.resolve(NSApplication.self)!) }.inObjectScope(.container)
         container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }.inObjectScope(.container)
         container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }.inObjectScope(.container)
         container.register(Observable.self, name: "displays$") { c in c.resolve(DisplayService.self)!.displays$ }.inObjectScope(.container)

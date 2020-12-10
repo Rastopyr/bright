@@ -13,7 +13,7 @@ enum Events {
     case updateSize(NSSize)
     case updatePosition(NSPoint)
     case updateView(NSView)
-    case updateVisibility(Bool)
+    case show
     
     case animateSize(NSSize)
     case animatePosition(NSPoint)
@@ -55,13 +55,13 @@ class WindowInstance {
     public let view$: PublishSubject<NSView>
     public let destroy$: PublishSubject<Void>
     
-    public let isVisible$: PublishSubject<Bool>;
+    public let show$: PublishSubject<Void>;
     
     init(options: CreateWindowOptions) {
         self.position$ = PublishSubject<NSPoint>()
         self.size$ = PublishSubject<NSSize>()
         self.view$ = PublishSubject<NSView>()
-        self.isVisible$ = PublishSubject<Bool>()
+        self.show$ = PublishSubject<Void>()
         self.destroy$ = PublishSubject<Void>()
         
         self.onSizeChange$ = self.size$.asObservable()
@@ -74,20 +74,18 @@ class WindowInstance {
         
         self.title = options.title;
         
-        var win: NSWindow? = WindowInstance.createWndow(options: options);
-        
         self.state$ = Observable.merge(
             self.size$.map({ Events.updateSize($0) }),
             self.position$.map({ Events.updatePosition($0) }),
             self.view$.map({ Events.updateView($0) }),
-            self.isVisible$.map({ Events.updateVisibility($0) }),
+            self.show$.map({ Events.show }),
             self.animatePosition$.map({ Events.animatePosition($0) }),
             self.animateSize$.map({ Events.animateSize($0) }),
             self.animateFrame$.map({ Events.animateFrame($0) }),
             self.destroy$.map({ Events.destroy })
         ).scan(
             WindowInstanceState(
-                win: win!
+                win: WindowInstance.createWndow(options: options)
             ),
             accumulator: { (state: WindowInstanceState, event: Events) -> WindowInstanceState in
                 switch (event) {
@@ -137,66 +135,68 @@ class WindowInstance {
                         win.contentView = parentView
                         
                         return WindowInstanceState(win: win, view: view, effectContainer: visualEffect)
-                    case let .updateVisibility(isVisible):
+                    case .show:
                         let win = state.win
+                        
+                        win.makeKeyAndOrderFront(nil)
 
-                        win.setIsVisible(isVisible)
+                        // win.setIsVisible(isVisible)
                         return state
                         
                     case .animateSize(let size):
                         let win = state.win
         
-//                        NSAnimationContext.runAnimationGroup({ [weak win] (context) in
-//                            context.duration = 0.25
-//
-//                            win!.animator().setFrame(
-//                                NSRect(
-//                                    x: win!.frame.origin.x,
-//                                    y: win!.frame.origin.y,
-//                                    width: size.width,
-//                                    height: size.height
-//                                ),
-//                                display: true,
-//                                animate: true
-//                            )
-//
-//                            win!.setContentSize(size)
-//
-//                            state.view?.animator().setFrameSize(size)
-//                            state.effectContainer?.animator().setFrameSize(size)
-//                        })
+                        NSAnimationContext.runAnimationGroup({ [weak win] (context) in
+                            context.duration = 0.25
+
+                            win!.animator().setFrame(
+                                NSRect(
+                                    x: win!.frame.origin.x,
+                                    y: win!.frame.origin.y,
+                                    width: size.width,
+                                    height: size.height
+                                ),
+                                display: true,
+                                animate: true
+                            )
+
+                            win!.setContentSize(size)
+
+                            state.view?.animator().setFrameSize(size)
+                            state.effectContainer?.animator().setFrameSize(size)
+                        })
                         
                         return state
                     case .animatePosition(let point):
                         let win = state.win
                         
-//                        NSAnimationContext.runAnimationGroup({ (context) in
-//                            context.duration = 0.25
-//
-//                            win.animator().setFrameTopLeftPoint(point)
-//                        })
+                        NSAnimationContext.runAnimationGroup({ (context) in
+                            context.duration = 0.25
+
+                            win.animator().setFrameTopLeftPoint(point)
+                        })
                         
                         return state
                 case .animateFrame(let rect):
                     let win = state.win
                     
-//                    NSAnimationContext.runAnimationGroup({ (context) in
-//                        context.duration = 0.25
-//
-//                        win.animator().setFrame(rect, display: true, animate: true)
-//
-//                        let size = NSSize(width: rect.width, height: rect.height)
-//
-//                        win.setContentSize(size)
-//                        state.view?.animator().setFrameSize(size)
-//                        state.effectContainer?.animator().setFrameSize(size)
-//                    })
+                    NSAnimationContext.runAnimationGroup({ (context) in
+                        context.duration = 0.25
+
+                        win.animator().setFrame(rect, display: true, animate: true)
+
+                        let size = NSSize(width: rect.width, height: rect.height)
+
+                        win.setContentSize(size)
+                        state.view?.animator().setFrameSize(size)
+                        state.effectContainer?.animator().setFrameSize(size)
+                    })
                     
                     return state
                 case .destroy:
                     let win = state.win
 
-                    win.setIsVisible(false)
+                    win.close()
 
                     return state
                 }
@@ -206,15 +206,12 @@ class WindowInstance {
             self.size$,
             self.position$,
             self.view$,
-            self.isVisible$,
+            self.show$,
             self.animatePosition$,
             self.animateSize$,
             self.animateFrame$,
             self.destroy$,
-            self.state$.subscribe(onDisposed: {
-                win = nil
-                print("win disposed")
-            })
+            self.state$.subscribe()
         ])
     }
 
@@ -251,7 +248,7 @@ class WindowInstance {
         newWindow.isOpaque = false
         newWindow.backgroundColor = .clear
         
-        print(newWindow.canBecomeMain)
+        newWindow.isReleasedWhenClosed = false
         
         return newWindow
     }
