@@ -12,7 +12,6 @@ import RxSwift
 
 var app: AppDelegate!
 
-
 @NSApplicationMain
 class AppDelegate: NSScreen, NSApplicationDelegate {
      private var statusMenu: NSMenu = NSMenu();
@@ -24,14 +23,20 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         let displaySerivce = container.resolve(DisplayService.self)!
+        let connectorService = container.resolve(ConnectorService.self)!
+        
+        connectorService.onStart()
         
         displaySerivce.subscribeToDisplayChanges()
         displaySerivce.syncDisplays()
+        
+        NSApplication.shared.setActivationPolicy(.accessory)
         
         self.buildStatusBar()
     }
 
     func applicationWillResignActive(_ aNotification: Notification) {
+        print(aNotification)
         let connectorService = container.resolve(ConnectorService.self)!
         connectorService.onDeactivate()
     }
@@ -66,9 +71,7 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     
     @objc private func activate() {
         let appService = container.resolve(AppService.self)!
-        
-        
-        
+
         appService.activate()
     }
     

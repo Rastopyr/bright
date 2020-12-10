@@ -12,6 +12,10 @@ struct CreateWindowActionBody {
     let options: CreateWindowOptions;
 }
 
+struct DestroyWindowActionBody {
+    let options: DestroyWindowOptions;
+}
+
 struct WindowVisibleStateActionBody {
     let title: String;
     let isVisible: Bool;
@@ -39,6 +43,7 @@ struct WindowViewStateActionBody {
 
 enum Event {
     case createWindow(CreateWindowActionBody)
+    case destroyWindow(DestroyWindowActionBody)
     case windowVisible(WindowVisibleStateActionBody)
     case windowSize(WindowSizeStateActionBody)
     case windowPosition(WindowPositionActionBody)
@@ -51,6 +56,7 @@ enum Event {
 
 enum Errors: Error {
     case windowAlreadyCreated(String)
+    case windowNotCreated(String)
     case windowNotExist(String)
     case emptyEventBody(Event)
 }
@@ -61,6 +67,12 @@ extension Dictionary {
     func set(_ key: Key, _ value: Value) -> [Key: Value] {
         var result = self
         result[key] = value
+        return result
+    }
+    
+    func delete(_ key: Key) -> [Key: Value] {
+        var result = self;
+        result[key] = nil
         return result
     }
 }
@@ -75,6 +87,24 @@ func reduceState(state: WindowServiceState, body: CreateWindowActionBody) throws
     return state.set(options.title, WindowInstance(options: options))
 }
 
+func reduceState(state: WindowServiceState, body: DestroyWindowActionBody) throws -> WindowServiceState {
+    let options = body.options
+
+    if (state[options.title] == nil) {
+        throw Errors.windowNotCreated(options.title)
+    }
+    
+    let win = state[options.title]
+    
+    win?.destroy$.onNext(());
+    
+    let newState = state.delete(options.title)
+    
+    print(newState)
+    
+    return newState
+}
+
 func reduceState(state: WindowServiceState, body: WindowVisibleStateActionBody) throws -> WindowServiceState {
     let title = body.title
     let isVisible = body.isVisible
@@ -84,6 +114,8 @@ func reduceState(state: WindowServiceState, body: WindowVisibleStateActionBody) 
     if (win == nil) {
        throw Errors.windowNotExist(title)
     }
+    
+    print(state)
 
     win?.isVisible$.onNext(isVisible)
 
@@ -191,6 +223,8 @@ class WindowService {
     private let disposeBag: DisposeBag = DisposeBag()
     
     private let newWindow$: PublishSubject<CreateWindowOptions>
+    private let destroyWindow$: PublishSubject<DestroyWindowOptions>
+    
     private let isVisible$: PublishSubject<(title: String, isVisible: Bool)>
     private let size$: PublishSubject<(title: String, size: NSSize)>
     private let view$: PublishSubject<(title: String, view: NSView)>
@@ -201,6 +235,7 @@ class WindowService {
     private let animateFrame$: PublishSubject<(title: String, rect: NSRect)>
     
     init() {
+        self.destroyWindow$ = PublishSubject<DestroyWindowOptions>()
         self.newWindow$ = PublishSubject<CreateWindowOptions>()
         self.isVisible$ = PublishSubject<(title: String, isVisible: Bool)>()
         self.size$ = PublishSubject<(title: String, size: NSSize)>()
@@ -215,6 +250,10 @@ class WindowService {
         self.state$ = Observable.merge(
             self.newWindow$.map({ options in
                 return Event.createWindow(CreateWindowActionBody(options: options))
+            }),
+            
+            self.destroyWindow$.map({ options in
+                return Event.destroyWindow(DestroyWindowActionBody(options: options))
             }),
             
             self.isVisible$.map({ payload in
@@ -248,6 +287,8 @@ class WindowService {
             switch(event) {
                 case .createWindow(let windowOptions):
                     return try reduceState(state: state, body: windowOptions)
+                case .destroyWindow(let options):
+                    return try reduceState(state: state, body: options)
                 case .windowVisible(let isVisible):
                     return try reduceState(state: state, body: isVisible)
                 case .windowSize(let size):
@@ -260,8 +301,8 @@ class WindowService {
                     return try reduceState(state: state, body: size, animate: true)
                 case .animateWindowPosition(let point):
                     return try reduceState(state: state, body: point, animate: true)
-            case .animateWindowFrame(let rect):
-                return try reduceState(state: state, body: rect)
+                case .animateWindowFrame(let rect):
+                    return try reduceState(state: state, body: rect)
             }
         }).share()
         
@@ -270,6 +311,10 @@ class WindowService {
     
     public func createWindow(options: CreateWindowOptions) {
         self.newWindow$.onNext(options);
+    }
+    
+    public func destroyWindow(options: DestroyWindowOptions) {
+        self.destroyWindow$.onNext(options);
     }
     
     public func updateWindowVisiblState(title: String, isVisible: Bool) {
