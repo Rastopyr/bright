@@ -22,4 +22,9 @@ class AppService {
     public func activate() {
         app.activate(ignoringOtherApps: true)
     }
+    
+    public func deactivate() {
+        app.hide(nil)
+        app.deactivate()
+    }
 }

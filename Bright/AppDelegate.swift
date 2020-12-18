@@ -23,12 +23,12 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         let displaySerivce = container.resolve(DisplayService.self)!
-        let connectorService = container.resolve(ConnectorService.self)!
+        let observerService = container.resolve(MediaKeyObserver.self)!
         
-        connectorService.onStart()
+        observerService.start()
         
         displaySerivce.subscribeToDisplayChanges()
-//        displaySerivce.syncDisplays()
+        displaySerivce.syncDisplays()
         
         NSApplication.shared.setActivationPolicy(.accessory)
         
@@ -37,6 +37,7 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
 
     func applicationWillResignActive(_ aNotification: Notification) {
         let connectorService = container.resolve(ConnectorService.self)!
+        print("app deactivate")
         connectorService.onDeactivate()
     }
     

@@ -3,3 +3,4 @@ github "ReactiveX/RxSwift" ~> 5.0
 github "reitermarkus/DDC.swift" "1763870c94c555ff93878caaec8235fd3a9a429d"
 github "Quick/Quick"
 github "Quick/Nimble"
+github "the0neyouseek/MediaKeyTap" "master"

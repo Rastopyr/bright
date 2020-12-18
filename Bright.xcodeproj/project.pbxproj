@@ -17,6 +17,9 @@
 		30198245251D33F800B2B120 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30198241251D33F800B2B120 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30198246251D33F800B2B120 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30198242251D33F800B2B120 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30198247251D33F800B2B120 /* Quick.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30198243251D33F800B2B120 /* Quick.framework.dSYM */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		303195C9258422BC00CB1F3E /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 303195C7258422B400CB1F3E /* MediaKeyTap.framework */; };
+		303195CA258422BC00CB1F3E /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 303195C7258422B400CB1F3E /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		303195CD2584231900CB1F3E /* MediaKeyTapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303195CC2584231900CB1F3E /* MediaKeyTapService.swift */; };
 		304204AA2488D03200BD0DB5 /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; };
 		304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 304204A92488D03200BD0DB5 /* Swinject.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304204AD2488DAEA00BD0DB5 /* DisplayService.swift */; };
@@ -29,7 +32,6 @@
 		3075C728247CFAB300614761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C727247CFAB300614761 /* Assets.xcassets */; };
 		3075C72B247CFAB300614761 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3075C72A247CFAB300614761 /* Preview Assets.xcassets */; };
 		3075C72E247CFAB300614761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3075C72C247CFAB300614761 /* Main.storyboard */; };
-		3075C758247E680900614761 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075C757247E680900614761 /* Structs.swift */; };
 		307D2DF72517DCA2001D21EA /* DDC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; };
 		307D2DF82517DCA2001D21EA /* DDC.framework.dSYM in Frameworks */ = {isa = PBXBuildFile; fileRef = 30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */; };
 		307D2DF92517DCAC001D21EA /* RxSwift.framework.dSYM in Frameworks */ = {isa = PBXBuildFile; fileRef = 308290032494044500693326 /* RxSwift.framework.dSYM */; };
@@ -45,6 +47,7 @@
 		30841F8B2492C25400A9DF61 /* DDC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; };
 		30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30057A09248ADB6B00F99CB8 /* DDC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B9F51F247FE7C2009459D2 /* BrightApp.swift */; };
+		30C846392586C45A0053BCE2 /* MediaKeyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C846382586C45A0053BCE2 /* MediaKeyObserver.swift */; };
 		30CD53C924B4C55E0035B267 /* SelectControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD53C824B4C55D0035B267 /* SelectControl.swift */; };
 		30CD53CB24B4DE7F0035B267 /* SelectControlRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */; };
 		30FC6055249C0896002095AA /* ConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FC6054249C0896002095AA /* ConnectorService.swift */; };
@@ -78,6 +81,7 @@
 				30841F8C2492C25400A9DF61 /* DDC.framework in Embed Frameworks */,
 				304204AB2488D03200BD0DB5 /* Swinject.framework in Embed Frameworks */,
 				308290092494F49900693326 /* RxSwift.framework in Embed Frameworks */,
+				303195CA258422BC00CB1F3E /* MediaKeyTap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +109,9 @@
 		30198241251D33F800B2B120 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		30198242251D33F800B2B120 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		30198243251D33F800B2B120 /* Quick.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Quick.framework.dSYM; path = Carthage/Build/Mac/Quick.framework.dSYM; sourceTree = "<group>"; };
+		303195C7258422B400CB1F3E /* MediaKeyTap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaKeyTap.framework; path = Carthage/Build/Mac/MediaKeyTap.framework; sourceTree = "<group>"; };
+		303195C8258422B400CB1F3E /* MediaKeyTap.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = MediaKeyTap.framework.dSYM; path = Carthage/Build/Mac/MediaKeyTap.framework.dSYM; sourceTree = "<group>"; };
+		303195CC2584231900CB1F3E /* MediaKeyTapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyTapService.swift; sourceTree = "<group>"; };
 		304204A82488D02800BD0DB5 /* Swinject.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Swinject.framework.dSYM; path = Carthage/Build/Mac/Swinject.framework.dSYM; sourceTree = "<group>"; };
 		304204A92488D03200BD0DB5 /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/Mac/Swinject.framework; sourceTree = "<group>"; };
 		304204AD2488DAEA00BD0DB5 /* DisplayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayService.swift; sourceTree = "<group>"; };
@@ -120,12 +127,10 @@
 		3075C72A247CFAB300614761 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3075C72D247CFAB300614761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3075C72F247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3075C730247CFAB300614761 /* Bright.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bright.entitlements; sourceTree = "<group>"; };
 		3075C735247CFAB300614761 /* BrightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3075C73B247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3075C740247CFAB300614761 /* BrightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3075C746247CFAB300614761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3075C757247E680900614761 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		307D2DFA2517DDAC001D21EA /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		307D2DFB2517DDAC001D21EA /* Quick.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Quick.framework.dSYM; path = Carthage/Build/Mac/Quick.framework.dSYM; sourceTree = "<group>"; };
 		307D2DFE2517DDBA001D21EA /* Nimble.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Nimble.framework.dSYM; path = Carthage/Build/Mac/Nimble.framework.dSYM; sourceTree = "<group>"; };
@@ -138,6 +143,7 @@
 		308410662523B45600016E55 /* WindowInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowInstance.swift; sourceTree = "<group>"; };
 		30841F8A2492C17E00A9DF61 /* DDC.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DDC.framework.dSYM; path = Carthage/Build/Mac/DDC.framework.dSYM; sourceTree = "<group>"; };
 		30B9F51F247FE7C2009459D2 /* BrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightApp.swift; sourceTree = "<group>"; };
+		30C846382586C45A0053BCE2 /* MediaKeyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyObserver.swift; sourceTree = "<group>"; };
 		30CD53C824B4C55D0035B267 /* SelectControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControl.swift; sourceTree = "<group>"; };
 		30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControlRow.swift; sourceTree = "<group>"; };
 		30FC6054249C0896002095AA /* ConnectorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorService.swift; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 				3019822E251D2DA800B2B120 /* RxRelay.framework in Frameworks */,
 				3019822F251D2DA800B2B120 /* RxRelay.framework.dSYM in Frameworks */,
 				30198230251D2DA800B2B120 /* RxSwift.framework in Frameworks */,
+				303195C9258422BC00CB1F3E /* MediaKeyTap.framework in Frameworks */,
 				30198231251D2DA800B2B120 /* RxSwift.framework.dSYM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,21 +190,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		300E21482486AE87003905B8 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				308410652523B44000016E55 /* WinowManager */,
-				304204AD2488DAEA00BD0DB5 /* DisplayService.swift */,
-				304204B12488DD7D00BD0DB5 /* AppService.swift */,
-				30057A072489875B00F99CB8 /* BrightnessService.swift */,
-				30FC6054249C0896002095AA /* ConnectorService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		304204A72488D02800BD0DB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				303195C7258422B400CB1F3E /* MediaKeyTap.framework */,
+				303195C8258422B400CB1F3E /* MediaKeyTap.framework.dSYM */,
 				307D2DFF2517DDBA001D21EA /* Nimble.framework */,
 				307D2DFE2517DDBA001D21EA /* Nimble.framework.dSYM */,
 				307D2DFA2517DDAC001D21EA /* Quick.framework */,
@@ -213,14 +210,6 @@
 				304204A82488D02800BD0DB5 /* Swinject.framework.dSYM */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		305AFBF324AA1A8600DC6143 /* DI */ = {
-			isa = PBXGroup;
-			children = (
-				305AFBF424AA1AA000DC6143 /* MainContainer.swift */,
-			);
-			path = DI;
 			sourceTree = "<group>";
 		};
 		3075C717247CFAB100614761 = {
@@ -251,15 +240,18 @@
 		3075C722247CFAB100614761 /* Bright */ = {
 			isa = PBXGroup;
 			children = (
-				305AFBF324AA1A8600DC6143 /* DI */,
-				300E21482486AE87003905B8 /* Services */,
-				30B9F521247FE9F5009459D2 /* UI */,
-				3075C756247E67F200614761 /* Model */,
+				305AFBF424AA1AA000DC6143 /* MainContainer.swift */,
+				30C846372586C43D0053BCE2 /* MediaKeys */,
+				308410652523B44000016E55 /* WinowManager */,
+				304204AD2488DAEA00BD0DB5 /* DisplayService.swift */,
+				304204B12488DD7D00BD0DB5 /* AppService.swift */,
+				30057A072489875B00F99CB8 /* BrightnessService.swift */,
+				30FC6054249C0896002095AA /* ConnectorService.swift */,
+				30B9F521247FE9F5009459D2 /* Views */,
 				3075C723247CFAB100614761 /* AppDelegate.swift */,
 				3075C727247CFAB300614761 /* Assets.xcassets */,
 				3075C72C247CFAB300614761 /* Main.storyboard */,
 				3075C72F247CFAB300614761 /* Info.plist */,
-				3075C730247CFAB300614761 /* Bright.entitlements */,
 				3075C729247CFAB300614761 /* Preview Content */,
 			);
 			path = Bright;
@@ -292,14 +284,6 @@
 			path = BrightUITests;
 			sourceTree = "<group>";
 		};
-		3075C756247E67F200614761 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3075C757247E680900614761 /* Structs.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		308410652523B44000016E55 /* WinowManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,7 +293,7 @@
 			path = WinowManager;
 			sourceTree = "<group>";
 		};
-		30B9F521247FE9F5009459D2 /* UI */ = {
+		30B9F521247FE9F5009459D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				30B9F51F247FE7C2009459D2 /* BrightApp.swift */,
@@ -317,7 +301,16 @@
 				30CD53C824B4C55D0035B267 /* SelectControl.swift */,
 				30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */,
 			);
-			path = UI;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		30C846372586C43D0053BCE2 /* MediaKeys */ = {
+			isa = PBXGroup;
+			children = (
+				303195CC2584231900CB1F3E /* MediaKeyTapService.swift */,
+				30C846382586C45A0053BCE2 /* MediaKeyObserver.swift */,
+			);
+			path = MediaKeys;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,12 +451,13 @@
 				30057A082489875B00F99CB8 /* BrightnessService.swift in Sources */,
 				30FC6055249C0896002095AA /* ConnectorService.swift in Sources */,
 				30CD53C924B4C55E0035B267 /* SelectControl.swift in Sources */,
+				303195CD2584231900CB1F3E /* MediaKeyTapService.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
 				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
-				3075C758247E680900614761 /* Structs.swift in Sources */,
 				30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */,
 				308410672523B45600016E55 /* WindowInstance.swift in Sources */,
 				305AFBF524AA1AA000DC6143 /* MainContainer.swift in Sources */,
+				30C846392586C45A0053BCE2 /* MediaKeyObserver.swift in Sources */,
 				304204B22488DD7D00BD0DB5 /* AppService.swift in Sources */,
 				30CD53CB24B4DE7F0035B267 /* SelectControlRow.swift in Sources */,
 				300E21472486A501003905B8 /* BrightControl.swift in Sources */,
@@ -637,11 +631,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = Bright/Bright.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "Bright/Preview\\ Content";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -655,6 +651,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moctivity.Bright;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -665,11 +662,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Bright/Bright.entitlements;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
+				CODE_SIGN_ENTITLEMENTS = Bright/BrightRelease.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "Bright/Preview\\ Content";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -683,6 +682,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moctivity.Bright;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

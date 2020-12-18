@@ -30,11 +30,15 @@ class MainContainer: ObservableObject {
             return view
         }.inObjectScope(.container)
         
+        container.register(MediaKeyTapService.self) { _ in MediaKeyTapService() }
+        
         container.register(ConnectorService.self) { c in ConnectorService(
             windowService: c.resolve(WindowService.self)!,
             displayService: c.resolve(DisplayService.self)!,
             brightView: c.resolve(BrightApp.self)!
         )}.inObjectScope(.container)
+        
+        container.register(MediaKeyObserver.self) { c in MediaKeyObserver.init(mediaKeyservice: c.resolve(MediaKeyTapService.self)!, appService: c.resolve(AppService.self)!) }
         
         return container
     }()

@@ -9,9 +9,7 @@ import Foundation
 import DDC
 import Cocoa
 
-
 class BrightnessSerivce {
-    
     func setBrightness(display: Display, brightnessValue: Double) -> Void {
         if (display.isNative == true) {
             BrightnessSerivce.setNativeBrightness?(display.id, brightnessValue)

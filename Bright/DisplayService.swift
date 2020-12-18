@@ -15,6 +15,15 @@ enum DisplayServiceEventTypes {
     case DisplaySync, DisplayBrightnessUpdate
 }
 
+struct Display: Identifiable {
+    let id: UInt32;
+    let name: String;
+    let isNative: Bool;
+    var brightness: Double;
+    var order: Int;
+    var size: NSRect
+}
+
 struct DisplaySyncEvent {
     let type = DisplayServiceEventTypes.DisplaySync;
     let displays: [Display];
@@ -30,39 +39,27 @@ struct DisplayServiceState {
     var displays: [Display];
 }
 
-// displaySync -> DisplaySyncEvent -> displays$
-// displayBrightnessUpdate -> DisplayBrightnessUpdateEvent -> displays$
-
 class DisplayService {
-    private let brightnessService: BrightnessSerivce;
+    private let disposeBag = DisposeBag()
+    private let brightnessService: BrightnessSerivce
     
-    var displays$: Observable<[Display]>;
-    var displayUpdates$: PublishSubject<[Display]>;
-    var brightnessUpdate$: Observable<(displayId: CGDirectDisplayID, brightness: Double)>;
+    public let displays$: Observable<[Display]>
+    
+    private let displayUpdates$ = PublishSubject<[Display]>()
+    private let brightnessUpdate$ = PublishSubject<(displayId: CGDirectDisplayID, brightness: Double)>()
     
     init(brightnessService: BrightnessSerivce) {
-        
         self.brightnessService = brightnessService
-        
-        self.displayUpdates$ = PublishSubject()
-        self.brightnessUpdate$ = PublishSubject()
-        self.displays$ = PublishSubject()
-
-        displayService = self
 
         self.displays$ = displayUpdates$.share(replay: 1, scope: .forever).asObservable()
         
-    }
-    
-    private func displaysReducer(state: [Display], event: DisplaySyncEvent) -> [Display] {
-        return []
-    }
-    private func displaysReducer(state: [Display], event: DisplayBrightnessUpdateEvent) -> [Display] {
-        return []
+        disposeBag.insert([
+            displayUpdates$,
+            brightnessUpdate$
+        ]);
     }
 
-    @objc
-    func syncDisplays() {
+    @objc func syncDisplays() {
         let d = NSScreen.screens.map({ (screen: NSScreen) -> Display in
             let displayID = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID)!
             
@@ -84,19 +81,17 @@ class DisplayService {
         displayUpdates$.onNext(d);
     }
     
+    private func isNativeDisplay(displayID: UInt32) -> Bool {
+        return CGDisplayIsBuiltin(displayID) != 0
+    }
+    
     func subscribeToDisplayChanges() {
         NotificationCenter.default.addObserver(
             forName: NSApplication.didChangeScreenParametersNotification,
             object: NSApplication.shared,
-            queue: OperationQueue.main) {
-                notification -> Void in
-                self.syncDisplays()
-        }
+            queue: OperationQueue.main
+        ) { _ in self.syncDisplays() }
         
         CGDisplayRegisterReconfigurationCallback({ _, _, _ in displayService.syncDisplays()}, nil)
-    }
-    
-    private func isNativeDisplay(displayID: UInt32) -> Bool {
-        return CGDisplayIsBuiltin(displayID) != 0
     }
 }
