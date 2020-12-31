@@ -9,20 +9,19 @@ import Cocoa
 import SwiftUI
 import RxSwift
 
-class ConnectorService {
+class UserInterfaceService {
     let windowService: WindowService;
-    let displayService: DisplayService;
     let rootView: BrightApp;
     let disposeBag = DisposeBag();
     
-    init(windowService: WindowService, displayService: DisplayService, brightView: BrightApp) {
+    init(windowService: WindowService, brightView: BrightApp) {
         self.windowService = windowService
-        self.displayService = displayService
         self.rootView = brightView
     }
     
     public func onStart() -> Void {}
     
+
     public func onActivate() -> Void {
         self.windowService.createWindow(options: CreateWindowOptions(hasCloseButton: false, draggable: true, title: "main"))
         self.windowService.updateWindowVisiblState(title: "main", isVisible: true)
@@ -31,8 +30,6 @@ class ConnectorService {
 
         let view = NSHostingView(rootView: rootView.edgesIgnoringSafeArea(Edge.Set.top))
         self.windowService.updateView(title: "main", view: view)
-
-        self.displayService.syncDisplays()
     }
     
     public func onDeactivate() -> Void {

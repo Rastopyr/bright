@@ -8,39 +8,39 @@
 import Cocoa
 import RxSwift
 
-struct CreateWindowActionBody {
+internal struct CreateWindowActionBody {
     let options: CreateWindowOptions;
 }
 
-struct DestroyWindowActionBody {
+internal struct DestroyWindowActionBody {
     let options: DestroyWindowOptions;
 }
 
-struct ShowWindowActionBody {
+internal struct ShowWindowActionBody {
     let title: String;
 }
 
-struct WindowSizeStateActionBody {
+internal struct WindowSizeStateActionBody {
     let title: String;
     let size: NSSize;
 }
 
-struct WindowPositionActionBody {
+internal struct WindowPositionActionBody {
     let title: String;
     let point: NSPoint;
 }
 
-struct WindowFrameStateActionBody {
+internal struct WindowFrameStateActionBody {
     let title: String;
     let rect: NSRect;
 }
 
-struct WindowViewStateActionBody {
+internal struct WindowViewStateActionBody {
     let title: String;
     let view: NSView;
 }
 
-enum Event {
+internal enum WindowServiceEvent {
     case createWindow(CreateWindowActionBody)
     case destroyWindow(DestroyWindowActionBody)
     case windowVisible(ShowWindowActionBody)
@@ -57,7 +57,7 @@ enum Errors: Error {
     case windowAlreadyCreated(String)
     case windowNotCreated(String)
     case windowNotExist(String)
-    case emptyEventBody(Event)
+    case emptyWindowServiceEventBody(WindowServiceEvent)
 }
 
 typealias WindowServiceState = [String: WindowInstance]
@@ -76,7 +76,7 @@ extension Dictionary {
     }
 }
 
-func reduceState(state: WindowServiceState, body: CreateWindowActionBody) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: CreateWindowActionBody) throws -> WindowServiceState {
     let options = body.options
 
     if (state[options.title] != nil) {
@@ -86,7 +86,7 @@ func reduceState(state: WindowServiceState, body: CreateWindowActionBody) throws
     return state.set(options.title, WindowInstance(options: options))
 }
 
-func reduceState(state: WindowServiceState, body: DestroyWindowActionBody) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: DestroyWindowActionBody) throws -> WindowServiceState {
     let options = body.options
 
     if (state[options.title] == nil) {
@@ -100,7 +100,7 @@ func reduceState(state: WindowServiceState, body: DestroyWindowActionBody) throw
     return state.delete(options.title)
 }
 
-func reduceState(state: WindowServiceState, body: ShowWindowActionBody) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: ShowWindowActionBody) throws -> WindowServiceState {
     let title = body.title
 
     let win: WindowInstance? = state[title]
@@ -115,7 +115,7 @@ func reduceState(state: WindowServiceState, body: ShowWindowActionBody) throws -
 }
 
 
-func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody) throws -> WindowServiceState {
     let title = body.title
     let size = body.size
 
@@ -130,7 +130,7 @@ func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody) thr
     return state;
 }
 
-func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody, animate: Bool) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody, animate: Bool) throws -> WindowServiceState {
     let title = body.title
     let size = body.size
 
@@ -145,7 +145,7 @@ func reduceState(state: WindowServiceState, body: WindowSizeStateActionBody, ani
     return state;
 }
 
-func reduceState(state: WindowServiceState, body: WindowViewStateActionBody) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: WindowViewStateActionBody) throws -> WindowServiceState {
     let title = body.title
     let view = body.view
 
@@ -160,7 +160,7 @@ func reduceState(state: WindowServiceState, body: WindowViewStateActionBody) thr
     return state
 }
 
-func reduceState(state: WindowServiceState, body: WindowPositionActionBody) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: WindowPositionActionBody) throws -> WindowServiceState {
     let title = body.title
     let point = body.point
 
@@ -175,7 +175,7 @@ func reduceState(state: WindowServiceState, body: WindowPositionActionBody) thro
     return state
 }
 
-func reduceState(state: WindowServiceState, body: WindowPositionActionBody, animate: Bool) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: WindowPositionActionBody, animate: Bool) throws -> WindowServiceState {
     let title = body.title
     let point = body.point
 
@@ -190,7 +190,7 @@ func reduceState(state: WindowServiceState, body: WindowPositionActionBody, anim
     return state
 }
 
-func reduceState(state: WindowServiceState, body: WindowFrameStateActionBody) throws -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: WindowFrameStateActionBody) throws -> WindowServiceState {
     let title = body.title
     let rect = body.rect
 
@@ -205,7 +205,7 @@ func reduceState(state: WindowServiceState, body: WindowFrameStateActionBody) th
     return state
 }
 
-func reduceState(state: WindowServiceState, body: Any) -> WindowServiceState {
+private func reduceState(state: WindowServiceState, body: Any) -> WindowServiceState {
     return state
 }
 
@@ -240,42 +240,42 @@ class WindowService {
     
         state$ = Observable.merge(
             newWindow$.map({ options in
-                return Event.createWindow(CreateWindowActionBody(options: options))
+                return WindowServiceEvent.createWindow(CreateWindowActionBody(options: options))
             }),
             
             destroyWindow$.map({ options in
-                return Event.destroyWindow(DestroyWindowActionBody(options: options))
+                return WindowServiceEvent.destroyWindow(DestroyWindowActionBody(options: options))
             }),
             
             showWindow$.map({ title in
-                return Event.windowVisible(ShowWindowActionBody(title: title))
+                return WindowServiceEvent.windowVisible(ShowWindowActionBody(title: title))
             }),
 
             size$.map({ payload in
-                return Event.windowSize(WindowSizeStateActionBody(title: payload.title, size: payload.size))
+                return WindowServiceEvent.windowSize(WindowSizeStateActionBody(title: payload.title, size: payload.size))
             }),
 
             view$.map({ payload in
-                return Event.windowView(WindowViewStateActionBody(title: payload.title, view: payload.view))
+                return WindowServiceEvent.windowView(WindowViewStateActionBody(title: payload.title, view: payload.view))
             }),
             
             position$.map({ payload in
-                return Event.windowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
+                return WindowServiceEvent.windowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
             }),
             
             animateSize$.map({ payload in
-                return Event.animateWindowSize(WindowSizeStateActionBody(title: payload.title, size: payload.size))
+                return WindowServiceEvent.animateWindowSize(WindowSizeStateActionBody(title: payload.title, size: payload.size))
             }),
             
             animatePosition$.map({ payload in
-                return Event.animateWindowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
+                return WindowServiceEvent.animateWindowPosition(WindowPositionActionBody(title: payload.title, point: payload.point))
             }),
             
             animateFrame$.map({ payload in
-                return Event.animateWindowFrame(WindowFrameStateActionBody(title: payload.title, rect: payload.rect))
+                return WindowServiceEvent.animateWindowFrame(WindowFrameStateActionBody(title: payload.title, rect: payload.rect))
             })
-        ).scan(WindowServiceState(), accumulator: { (state, event: Event) in
-            switch(event) {
+        ).scan(WindowServiceState(), accumulator: { (state, WindowServiceEvent: WindowServiceEvent) in
+            switch(WindowServiceEvent) {
                 case .createWindow(let windowOptions):
                     return try reduceState(state: state, body: windowOptions)
                 case .destroyWindow(let options):

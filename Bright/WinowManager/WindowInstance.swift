@@ -9,7 +9,13 @@ import Foundation
 import RxSwift
 import Cocoa
 
-enum Events {
+struct CreateWindowOptions {
+    let hasCloseButton: Bool;
+    let draggable: Bool;
+    let title: String;
+}
+
+private enum WindowInstanceEvents {
     case updateSize(NSSize)
     case updatePosition(NSPoint)
     case updateView(NSView)
@@ -22,17 +28,12 @@ enum Events {
     case destroy
 }
 
-struct CreateWindowOptions {
-    let hasCloseButton: Bool;
-    let draggable: Bool;
-    let title: String;
-}
 
 struct DestroyWindowOptions {
     let title: String;
 }
 
-struct WindowInstanceState {
+private struct WindowInstanceState {
     let win: NSWindow;
     var view: NSView?;
     var effectContainer: NSVisualEffectView?;
@@ -75,19 +76,19 @@ class WindowInstance {
         self.title = options.title;
         
         self.state$ = Observable.merge(
-            self.size$.map({ Events.updateSize($0) }),
-            self.position$.map({ Events.updatePosition($0) }),
-            self.view$.map({ Events.updateView($0) }),
-            self.show$.map({ Events.show }),
-            self.animatePosition$.map({ Events.animatePosition($0) }),
-            self.animateSize$.map({ Events.animateSize($0) }),
-            self.animateFrame$.map({ Events.animateFrame($0) }),
-            self.destroy$.map({ Events.destroy })
+            self.size$.map({ WindowInstanceEvents.updateSize($0) }),
+            self.position$.map({ WindowInstanceEvents.updatePosition($0) }),
+            self.view$.map({ WindowInstanceEvents.updateView($0) }),
+            self.show$.map({ WindowInstanceEvents.show }),
+            self.animatePosition$.map({ WindowInstanceEvents.animatePosition($0) }),
+            self.animateSize$.map({ WindowInstanceEvents.animateSize($0) }),
+            self.animateFrame$.map({ WindowInstanceEvents.animateFrame($0) }),
+            self.destroy$.map({ WindowInstanceEvents.destroy })
         ).scan(
             WindowInstanceState(
                 win: WindowInstance.createWndow(options: options)
             ),
-            accumulator: { (state: WindowInstanceState, event: Events) -> WindowInstanceState in
+            accumulator: { (state: WindowInstanceState, event: WindowInstanceEvents) -> WindowInstanceState in
                 switch (event) {
                     case .updateSize(let size):
                         let win = state.win

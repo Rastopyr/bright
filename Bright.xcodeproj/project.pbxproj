@@ -50,7 +50,9 @@
 		30C846392586C45A0053BCE2 /* MediaKeyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C846382586C45A0053BCE2 /* MediaKeyObserver.swift */; };
 		30CD53C924B4C55E0035B267 /* SelectControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD53C824B4C55D0035B267 /* SelectControl.swift */; };
 		30CD53CB24B4DE7F0035B267 /* SelectControlRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */; };
-		30FC6055249C0896002095AA /* ConnectorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FC6054249C0896002095AA /* ConnectorService.swift */; };
+		30CEFA622596670700040BCF /* DisplayBrightnessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CEFA612596670700040BCF /* DisplayBrightnessService.swift */; };
+		30CEFA652596708500040BCF /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CEFA642596708500040BCF /* State.swift */; };
+		30FC6055249C0896002095AA /* UserInterfaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FC6054249C0896002095AA /* UserInterfaceService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,7 +148,9 @@
 		30C846382586C45A0053BCE2 /* MediaKeyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyObserver.swift; sourceTree = "<group>"; };
 		30CD53C824B4C55D0035B267 /* SelectControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControl.swift; sourceTree = "<group>"; };
 		30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectControlRow.swift; sourceTree = "<group>"; };
-		30FC6054249C0896002095AA /* ConnectorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorService.swift; sourceTree = "<group>"; };
+		30CEFA612596670700040BCF /* DisplayBrightnessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBrightnessService.swift; sourceTree = "<group>"; };
+		30CEFA642596708500040BCF /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		30FC6054249C0896002095AA /* UserInterfaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,15 +244,18 @@
 		3075C722247CFAB100614761 /* Bright */ = {
 			isa = PBXGroup;
 			children = (
-				305AFBF424AA1AA000DC6143 /* MainContainer.swift */,
-				30C846372586C43D0053BCE2 /* MediaKeys */,
+				30B9F521247FE9F5009459D2 /* Views */,
 				308410652523B44000016E55 /* WinowManager */,
+				3075C723247CFAB100614761 /* AppDelegate.swift */,
+				30CEFA642596708500040BCF /* State.swift */,
+				30CEFA612596670700040BCF /* DisplayBrightnessService.swift */,
+				30C846382586C45A0053BCE2 /* MediaKeyObserver.swift */,
+				303195CC2584231900CB1F3E /* MediaKeyTapService.swift */,
+				305AFBF424AA1AA000DC6143 /* MainContainer.swift */,
 				304204AD2488DAEA00BD0DB5 /* DisplayService.swift */,
 				304204B12488DD7D00BD0DB5 /* AppService.swift */,
 				30057A072489875B00F99CB8 /* BrightnessService.swift */,
-				30FC6054249C0896002095AA /* ConnectorService.swift */,
-				30B9F521247FE9F5009459D2 /* Views */,
-				3075C723247CFAB100614761 /* AppDelegate.swift */,
+				30FC6054249C0896002095AA /* UserInterfaceService.swift */,
 				3075C727247CFAB300614761 /* Assets.xcassets */,
 				3075C72C247CFAB300614761 /* Main.storyboard */,
 				3075C72F247CFAB300614761 /* Info.plist */,
@@ -302,15 +309,6 @@
 				30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		30C846372586C43D0053BCE2 /* MediaKeys */ = {
-			isa = PBXGroup;
-			children = (
-				303195CC2584231900CB1F3E /* MediaKeyTapService.swift */,
-				30C846382586C45A0053BCE2 /* MediaKeyObserver.swift */,
-			);
-			path = MediaKeys;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,11 +447,13 @@
 			files = (
 				308290072494DF2F00693326 /* WindowSerivce.swift in Sources */,
 				30057A082489875B00F99CB8 /* BrightnessService.swift in Sources */,
-				30FC6055249C0896002095AA /* ConnectorService.swift in Sources */,
+				30FC6055249C0896002095AA /* UserInterfaceService.swift in Sources */,
 				30CD53C924B4C55E0035B267 /* SelectControl.swift in Sources */,
 				303195CD2584231900CB1F3E /* MediaKeyTapService.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,
 				304204AE2488DAEA00BD0DB5 /* DisplayService.swift in Sources */,
+				30CEFA652596708500040BCF /* State.swift in Sources */,
+				30CEFA622596670700040BCF /* DisplayBrightnessService.swift in Sources */,
 				30B9F520247FE7C2009459D2 /* BrightApp.swift in Sources */,
 				308410672523B45600016E55 /* WindowInstance.swift in Sources */,
 				305AFBF524AA1AA000DC6143 /* MainContainer.swift in Sources */,

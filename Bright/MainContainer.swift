@@ -21,6 +21,7 @@ class MainContainer: ObservableObject {
         container.register(AppService.self) { c in AppService(appInstance: c.resolve(NSApplication.self)!) }.inObjectScope(.container)
         container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }.inObjectScope(.container)
         container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }.inObjectScope(.container)
+        
         container.register(Observable.self, name: "displays$") { c in c.resolve(DisplayService.self)!.displays$ }.inObjectScope(.container)
         
         container.register(WindowService.self) { _ in WindowService( ) }.inObjectScope(.container)
@@ -30,15 +31,23 @@ class MainContainer: ObservableObject {
             return view
         }.inObjectScope(.container)
         
-        container.register(MediaKeyTapService.self) { _ in MediaKeyTapService() }
+        container.register(MediaKeyTapService.self) { _ in MediaKeyTapService() }.inObjectScope(.container)
         
-        container.register(ConnectorService.self) { c in ConnectorService(
+        container.register(DisplayBrightnessService.self) { c in DisplayBrightnessService(
+            brightnessService: c.resolve(BrightnessSerivce.self)!,
+            displayService: c.resolve(DisplayService.self)!
+        ) }.inObjectScope(.container)
+        
+        container.register(UserInterfaceService.self) { c in UserInterfaceService(
             windowService: c.resolve(WindowService.self)!,
-            displayService: c.resolve(DisplayService.self)!,
             brightView: c.resolve(BrightApp.self)!
         )}.inObjectScope(.container)
         
-        container.register(MediaKeyObserver.self) { c in MediaKeyObserver.init(mediaKeyservice: c.resolve(MediaKeyTapService.self)!, appService: c.resolve(AppService.self)!) }
+        container.register(MediaKeyObserver.self) { c in MediaKeyObserver.init(
+            mediaKeyservice: c.resolve(MediaKeyTapService.self)!,
+            appService: c.resolve(AppService.self)!,
+            displayBrightnessService: c.resolve(DisplayBrightnessService.self)!
+        ) }.inObjectScope(.container)
         
         return container
     }()

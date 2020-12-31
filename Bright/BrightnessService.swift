@@ -72,7 +72,8 @@ class BrightnessSerivce {
     }
     
     private static func setExternalBrightness(displayID: UInt32, brightnessValue: Double) -> Void {
-        guard DDC(for: displayID)?.write(command: .brightness, value: UInt16(brightnessValue * 100)) == true else {
+        let writeResult =  DDC(for: displayID)?.write(command: .brightness, value: UInt16(brightnessValue * 100))
+        guard writeResult == true else {
           return
         }
     }

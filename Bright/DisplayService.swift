@@ -11,7 +11,7 @@ import RxSwift
 
 var displayService: DisplayService!
 
-enum DisplayServiceEventTypes {
+enum DisplayServiceDisplayServiceEventTypes {
     case DisplaySync, DisplayBrightnessUpdate
 }
 
@@ -24,19 +24,62 @@ struct Display: Identifiable {
     var size: NSRect
 }
 
-struct DisplaySyncEvent {
-    let type = DisplayServiceEventTypes.DisplaySync;
-    let displays: [Display];
+internal struct BrighnessUpdateDisplayServiceEvent {
+    let displayId: UInt32;
+    let brightness: Double;
 }
 
-struct DisplayBrightnessUpdateEvent {
-    let type = DisplayServiceEventTypes.DisplayBrightnessUpdate;
-    let displayId: CGDirectDisplayID;
-    let displayValue: Double;
-}
+internal struct DisplaysUpdateDisplayServiceEvent {}
 
-struct DisplayServiceState {
+
+internal struct DisplayServiceState {
     var displays: [Display];
+}
+
+internal enum DisplayServiceEvent {
+    case updateDisplays
+    case brightnessUpdate(BrighnessUpdateDisplayServiceEvent)
+}
+
+internal func reduceDisplayServiceState(state: DisplayServiceState, event: DisplaysUpdateDisplayServiceEvent, brightnessService: BrightnessSerivce) -> DisplayServiceState {
+    let displays = NSScreen.screens.map({ (screen: NSScreen) -> Display in
+        let displayId = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID)!
+        
+        let isNative =  CGDisplayIsBuiltin(displayId) != 0
+
+        return Display(
+            id: displayId,
+            name: screen.localizedName,
+            isNative: isNative,
+            brightness: brightnessService.getBrightness(
+                displayID: displayId,
+                isNative: isNative
+            ),
+            order: 0,
+            size: screen.frame
+        )
+    });
+    
+    return DisplayServiceState(displays: displays)
+}
+
+internal func reduceDisplayServiceState(state: DisplayServiceState, event: BrighnessUpdateDisplayServiceEvent) -> DisplayServiceState {
+    return DisplayServiceState(
+        displays: state.displays.map({ (display) -> Display in
+            if (display.id == event.displayId) {
+                return Display(
+                    id: display.id,
+                    name: display.name,
+                    isNative: display.isNative,
+                    brightness: event.brightness,
+                    order: display.order,
+                    size: display.size
+                )
+            }
+            
+            return display
+        })
+    )
 }
 
 class DisplayService {
@@ -45,52 +88,52 @@ class DisplayService {
     
     public let displays$: Observable<[Display]>
     
-    private let displayUpdates$ = PublishSubject<[Display]>()
+    private let displaysUpdate$ = PublishSubject<Void>()
     private let brightnessUpdate$ = PublishSubject<(displayId: CGDirectDisplayID, brightness: Double)>()
+    
+    private let DisplayServiceState$: Observable<DisplayServiceState>
     
     init(brightnessService: BrightnessSerivce) {
         self.brightnessService = brightnessService
-
-        self.displays$ = displayUpdates$.share(replay: 1, scope: .forever).asObservable()
+        
+        self.DisplayServiceState$ = Observable.merge(
+            self.displaysUpdate$.map({ DisplayServiceEvent.updateDisplays }),
+            self.brightnessUpdate$.map({ DisplayServiceEvent.brightnessUpdate(BrighnessUpdateDisplayServiceEvent(displayId: $0.displayId, brightness: $0.brightness)) })
+        ).scan(DisplayServiceState(displays: []), accumulator: { (state: DisplayServiceState, event: DisplayServiceEvent) -> DisplayServiceState in
+            switch (event) {
+                case .updateDisplays:
+                    return reduceDisplayServiceState(
+                        state: state,
+                        event: DisplaysUpdateDisplayServiceEvent(),
+                        brightnessService: brightnessService
+                    )
+                case .brightnessUpdate(let brightnessDisplayServiceEvent):
+                    return reduceDisplayServiceState(state: state, event: brightnessDisplayServiceEvent)
+            }
+        }).share()
+        
+        self.displays$ = self.DisplayServiceState$.map({ $0.displays })
         
         disposeBag.insert([
-            displayUpdates$,
-            brightnessUpdate$
+            displaysUpdate$,
+            brightnessUpdate$,
+            self.DisplayServiceState$.subscribe()
         ]);
+        
+        displayService = self;
     }
 
-    @objc func syncDisplays() {
-        let d = NSScreen.screens.map({ (screen: NSScreen) -> Display in
-            let displayID = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID)!
-            
-            let isNative = self.isNativeDisplay(displayID: displayID)
-            
-            return Display(
-                id: displayID,
-                name: screen.localizedName,
-                isNative: isNative,
-                brightness: brightnessService.getBrightness(
-                    displayID: displayID,
-                    isNative: isNative
-                ),
-                order: 0,
-                size: screen.frame
-            )
-        });
-        
-        displayUpdates$.onNext(d);
+    public func syncDisplays() {
+        displaysUpdate$.onNext(());
     }
     
-    private func isNativeDisplay(displayID: UInt32) -> Bool {
-        return CGDisplayIsBuiltin(displayID) != 0
-    }
-    
-    func subscribeToDisplayChanges() {
+    public func subscribeToDisplayChanges() {
         NotificationCenter.default.addObserver(
             forName: NSApplication.didChangeScreenParametersNotification,
             object: NSApplication.shared,
             queue: OperationQueue.main
         ) { _ in self.syncDisplays() }
+        
         
         CGDisplayRegisterReconfigurationCallback({ _, _, _ in displayService.syncDisplays()}, nil)
     }

@@ -36,14 +36,13 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
     }
 
     func applicationWillResignActive(_ aNotification: Notification) {
-        let connectorService = container.resolve(ConnectorService.self)!
-        print("app deactivate")
-        connectorService.onDeactivate()
+        let UI = container.resolve(UserInterfaceService.self)!
+        UI.onDeactivate()
     }
     
     func applicationDidBecomeActive(_ notification: Notification) {
-        let connectorService = container.resolve(ConnectorService.self)!
-        connectorService.onActivate()
+        let UI = container.resolve(UserInterfaceService.self)!
+        UI.onActivate()
     }
     
     private func buildStatusBar() {
@@ -51,7 +50,7 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         statusItem.menu = statusMenu
         
         let titleItem = NSMenuItem()
-        titleItem.title = NSLocalizedString("Bright", comment: "123")
+        titleItem.title = NSLocalizedString("Bright", comment: "")
         titleItem.isEnabled = false
         
         titleItem.action = #selector(self.activate)
@@ -60,7 +59,7 @@ class AppDelegate: NSScreen, NSApplicationDelegate {
         statusMenu.insertItem(NSMenuItem.separator(), at: 1)
 
         let quitItem = NSMenuItem()
-        quitItem.title = NSLocalizedString("Quit", comment: "123")
+        quitItem.title = NSLocalizedString("Quit", comment: " s")
         quitItem.isEnabled = true
         quitItem.target = self
 
