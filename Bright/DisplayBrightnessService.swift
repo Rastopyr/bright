@@ -53,11 +53,8 @@ class DisplayBrightnessService {
                         return state
                     }
                     
-                    let newBrightness =  mainDisplay!.brightness + 0.1
-                    
-                    if (newBrightness > 1) {
-                        return state;
-                    }
+                    let newBrightnessValue =  mainDisplay!.brightness + 0.05
+                    let newBrightness = newBrightnessValue > 1 ? 1 : newBrightnessValue
                     
                     state.displays.forEach { (display) in
                         brightnessService.setBrightness(display: display, brightnessValue: newBrightness)
@@ -82,11 +79,8 @@ class DisplayBrightnessService {
                         return state
                     }
                     
-                    let newBrightness =  mainDisplay!.brightness - 0.1
-                    
-                    if (newBrightness <= 0) {
-                        return state;
-                    }
+                    let newBrightnessValue =  mainDisplay!.brightness - 0.05
+                    let newBrightness = newBrightnessValue <= 0 ? 0 : newBrightnessValue
                     
                     state.displays.forEach { (display) in
                         brightnessService.setBrightness(display: display, brightnessValue: newBrightness)

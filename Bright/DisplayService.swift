@@ -96,7 +96,10 @@ class DisplayService {
     init(brightnessService: BrightnessSerivce) {
         self.brightnessService = brightnessService
         
+        let updateInterval$ = Observable<Int>.interval(RxTimeInterval.seconds(3), scheduler: MainScheduler.asyncInstance)
+        
         self.DisplayServiceState$ = Observable.merge(
+            updateInterval$.map({ _ in DisplayServiceEvent.updateDisplays }),
             self.displaysUpdate$.map({ DisplayServiceEvent.updateDisplays }),
             self.brightnessUpdate$.map({ DisplayServiceEvent.brightnessUpdate(BrighnessUpdateDisplayServiceEvent(displayId: $0.displayId, brightness: $0.brightness)) })
         ).scan(DisplayServiceState(displays: []), accumulator: { (state: DisplayServiceState, event: DisplayServiceEvent) -> DisplayServiceState in
