@@ -17,6 +17,7 @@
 		30198245251D33F800B2B120 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30198241251D33F800B2B120 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30198246251D33F800B2B120 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30198242251D33F800B2B120 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30198247251D33F800B2B120 /* Quick.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30198243251D33F800B2B120 /* Quick.framework.dSYM */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		30239878259F750B00142EF5 /* DisplaySliderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30239877259F750B00142EF5 /* DisplaySliderControl.swift */; };
 		303195C9258422BC00CB1F3E /* MediaKeyTap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 303195C7258422B400CB1F3E /* MediaKeyTap.framework */; };
 		303195CA258422BC00CB1F3E /* MediaKeyTap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 303195C7258422B400CB1F3E /* MediaKeyTap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		303195CD2584231900CB1F3E /* MediaKeyTapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303195CC2584231900CB1F3E /* MediaKeyTapService.swift */; };
@@ -111,6 +112,7 @@
 		30198241251D33F800B2B120 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		30198242251D33F800B2B120 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		30198243251D33F800B2B120 /* Quick.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Quick.framework.dSYM; path = Carthage/Build/Mac/Quick.framework.dSYM; sourceTree = "<group>"; };
+		30239877259F750B00142EF5 /* DisplaySliderControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySliderControl.swift; sourceTree = "<group>"; };
 		303195C7258422B400CB1F3E /* MediaKeyTap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaKeyTap.framework; path = Carthage/Build/Mac/MediaKeyTap.framework; sourceTree = "<group>"; };
 		303195C8258422B400CB1F3E /* MediaKeyTap.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = MediaKeyTap.framework.dSYM; path = Carthage/Build/Mac/MediaKeyTap.framework.dSYM; sourceTree = "<group>"; };
 		303195CC2584231900CB1F3E /* MediaKeyTapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyTapService.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				300E21462486A501003905B8 /* BrightControl.swift */,
 				30CD53C824B4C55D0035B267 /* SelectControl.swift */,
 				30CD53CA24B4DE7F0035B267 /* SelectControlRow.swift */,
+				30239877259F750B00142EF5 /* DisplaySliderControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				308290072494DF2F00693326 /* WindowSerivce.swift in Sources */,
 				30057A082489875B00F99CB8 /* BrightnessService.swift in Sources */,
 				30FC6055249C0896002095AA /* UserInterfaceService.swift in Sources */,
+				30239878259F750B00142EF5 /* DisplaySliderControl.swift in Sources */,
 				30CD53C924B4C55E0035B267 /* SelectControl.swift in Sources */,
 				303195CD2584231900CB1F3E /* MediaKeyTapService.swift in Sources */,
 				3075C724247CFAB100614761 /* AppDelegate.swift in Sources */,

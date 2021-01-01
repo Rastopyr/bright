@@ -25,8 +25,8 @@ class UserInterfaceService {
     public func onActivate() -> Void {
         self.windowService.createWindow(options: CreateWindowOptions(hasCloseButton: false, draggable: true, title: "main"))
         self.windowService.updateWindowVisiblState(title: "main", isVisible: true)
-        self.windowService.updateWindowSize(title: "main", size: NSSize(width: 200, height: 200))
-        self.windowService.updateWindowPosition(title: "main", point: NSPoint(x: 200, y: 200))
+        self.windowService.updateWindowSize(title: "main", size: NSSize(width: 600, height: 300))
+        self.windowService.updateWindowPosition(title: "main", point: NSPoint(x: 500, y: 400))
 
         let view = NSHostingView(rootView: rootView.edgesIgnoringSafeArea(Edge.Set.top))
         self.windowService.updateView(title: "main", view: view)

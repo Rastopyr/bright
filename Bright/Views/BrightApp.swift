@@ -30,65 +30,30 @@ class DisplaysBinding: ObservableObject {
 
 struct BrightApp: View {
     @ObservedObject var DI: MainContainer;
+    @State var displays: [Display] = [];
+    
+    private let disposeBag = DisposeBag();
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Text("Hello Bright")
-            }
-        }
-    }
-}
-
-extension BrightApp {
-    struct BrightAppView: View {
-        @ObservedObject var model: DisplaysBinding;
+        let displays$ = DI.container.resolve(Observable<[Display]>.self, name: "displays$")!
         
-        var body: some View {
-            return ZStack {
-                Rectangle().fill(Color.white)
-                HStack {
-                    ForEach(model.displays, id: \.id) { (display: Display) in
-                        VStack {
-                            Text(display.name)
-                            BrightControl(
-                            fillPercent: display.brightness, displayID: display.id) { (id, value) in
-                                print(id, value)
-                            }
-
-                        }
-                    }
-                    
-                    SelectControl(
-                        list: ["by NightShift", "by time range", "disable"]
-                    ).frame(width: 200 , height: 400)   
-                }
-            }
+        displays$.subscribe(onNext: {
+            self.displays = $0
+        }).disposed(by: disposeBag)
+        
+        return ForEach(displays, id: \.id) { (display: Display) in
+            DisplaySliderControl(
+               brightnessValue: display.brightness,
+               displayName: display.name
+            )
         }
     }
 }
 
 struct BrightApp_Previews: PreviewProvider {
     static var previews: some View {
-        let displays$ = ReplaySubject<[Display]>.create(bufferSize: 1)
-        let ds$ = displays$.asObservable()
-
-        let d = [
-            Display(
-                id: 1,
-                name: "Built-in Display",
-                isNative: true,
-                brightness: 0.3,
-                order: 1,
-                size: NSRect(x: 1, y: 1, width: 1, height: 1)
-            )
-        ]
-        
-        
-        let view = BrightApp.BrightAppView(model: DisplaysBinding(displays$: ds$))
-        
-        displays$.onNext(d)
-        
-        return view
+        return BrightApp(
+            DI: MainContainer.shared
+        )
     }
 }
