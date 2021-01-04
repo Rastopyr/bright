@@ -10,13 +10,14 @@ import SwiftUI
 import RxSwift
 
 class UserInterfaceService {
-    let windowService: WindowService;
-    let rootView: BrightApp;
-    let disposeBag = DisposeBag();
+    let windowService: WindowService
+    let disposeBag = DisposeBag()
     
-    init(windowService: WindowService, brightView: BrightApp) {
+    let displayBrightnessService: DisplayBrightnessService
+    
+    init(windowService: WindowService, displayBrightnessService: DisplayBrightnessService) {
         self.windowService = windowService
-        self.rootView = brightView
+        self.displayBrightnessService = displayBrightnessService
     }
     
     public func onStart() -> Void {}
@@ -28,7 +29,12 @@ class UserInterfaceService {
         self.windowService.updateWindowSize(title: "main", size: NSSize(width: 600, height: 300))
         self.windowService.updateWindowPosition(title: "main", point: NSPoint(x: 500, y: 400))
 
-        let view = NSHostingView(rootView: rootView.edgesIgnoringSafeArea(Edge.Set.top))
+        let view = NSHostingView(
+            rootView: BrightApp()
+                        .edgesIgnoringSafeArea(Edge.Set.top)
+                        .environment(\.displayBrightnessService, displayBrightnessService)
+        )
+        
         self.windowService.updateView(title: "main", view: view)
     }
     

@@ -8,6 +8,18 @@
 import AppKit
 import Swinject
 import RxSwift
+import SwiftUI
+
+private struct DisplayBrightnessServiceEnvironmentKey: EnvironmentKey {
+    static var defaultValue: DisplayBrightnessService?
+}
+
+extension EnvironmentValues {
+    var displayBrightnessService: DisplayBrightnessService? {
+        get { self[DisplayBrightnessServiceEnvironmentKey.self] }
+        set { self[DisplayBrightnessServiceEnvironmentKey.self] = newValue }
+    }
+}
 
 class MainContainer: ObservableObject {
     public static let shared: MainContainer = {
@@ -22,14 +34,7 @@ class MainContainer: ObservableObject {
         container.register(BrightnessSerivce.self) { _ in BrightnessSerivce() }.inObjectScope(.container)
         container.register(DisplayService.self) { _ in DisplayService(brightnessService: BrightnessSerivce()) }.inObjectScope(.container)
         
-        container.register(Observable.self, name: "displays$") { c in c.resolve(DisplayService.self)!.displays$ }.inObjectScope(.container)
-        
         container.register(WindowService.self) { _ in WindowService( ) }.inObjectScope(.container)
-
-        container.register(BrightApp.self) { c in
-            let view = BrightApp(DI: MainContainer.shared)
-            return view
-        }.inObjectScope(.container)
         
         container.register(MediaKeyTapService.self) { _ in MediaKeyTapService() }.inObjectScope(.container)
         
@@ -40,7 +45,7 @@ class MainContainer: ObservableObject {
         
         container.register(UserInterfaceService.self) { c in UserInterfaceService(
             windowService: c.resolve(WindowService.self)!,
-            brightView: c.resolve(BrightApp.self)!
+            displayBrightnessService: c.resolve(DisplayBrightnessService.self)!
         )}.inObjectScope(.container)
         
         container.register(MediaKeyObserver.self) { c in MediaKeyObserver.init(

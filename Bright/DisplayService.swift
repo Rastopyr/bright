@@ -41,20 +41,26 @@ internal enum DisplayServiceEvent {
     case brightnessUpdate(BrighnessUpdateDisplayServiceEvent)
 }
 
-internal func reduceDisplayServiceState(state: DisplayServiceState, event: DisplaysUpdateDisplayServiceEvent, brightnessService: BrightnessSerivce) -> DisplayServiceState {
+internal func reduceDisplayServiceState(state: DisplayServiceState, event: DisplaysUpdateDisplayServiceEvent, brightnessService: BrightnessSerivce) -> DisplayServiceState {    
+    let mainScreenBrightness = brightnessService.getBrightness(displayID: 0, isNative: true)
+    
     let displays = NSScreen.screens.map({ (screen: NSScreen) -> Display in
         let displayId = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID)!
         
         let isNative =  CGDisplayIsBuiltin(displayId) != 0
+        
+        let displayBrightness = brightnessService.getBrightness(
+            displayID: displayId,
+            isNative: isNative
+        )
+        
+        let brightness = displayBrightness == -1.0 ? mainScreenBrightness : displayBrightness
 
         return Display(
             id: displayId,
             name: screen.localizedName,
             isNative: isNative,
-            brightness: brightnessService.getBrightness(
-                displayID: displayId,
-                isNative: isNative
-            ),
+            brightness: brightness,
             order: 0,
             size: screen.frame
         )
@@ -91,15 +97,15 @@ class DisplayService {
     private let displaysUpdate$ = PublishSubject<Void>()
     private let brightnessUpdate$ = PublishSubject<(displayId: CGDirectDisplayID, brightness: Double)>()
     
-    private let DisplayServiceState$: Observable<DisplayServiceState>
+    private let state$: Observable<DisplayServiceState>
     
     init(brightnessService: BrightnessSerivce) {
         self.brightnessService = brightnessService
         
-        let updateInterval$ = Observable<Int>.interval(RxTimeInterval.seconds(3), scheduler: MainScheduler.asyncInstance)
+//        let updateInterval$ = Observable<Int>.interval(RxTimeInterval.seconds(3), scheduler: MainScheduler.asyncInstance)
         
-        self.DisplayServiceState$ = Observable.merge(
-            updateInterval$.map({ _ in DisplayServiceEvent.updateDisplays }),
+        self.state$ = Observable.merge(
+//            updateInterval$.map({ _ in DisplayServiceEvent.updateDisplays }),
             self.displaysUpdate$.map({ DisplayServiceEvent.updateDisplays }),
             self.brightnessUpdate$.map({ DisplayServiceEvent.brightnessUpdate(BrighnessUpdateDisplayServiceEvent(displayId: $0.displayId, brightness: $0.brightness)) })
         ).scan(DisplayServiceState(displays: []), accumulator: { (state: DisplayServiceState, event: DisplayServiceEvent) -> DisplayServiceState in
@@ -113,14 +119,14 @@ class DisplayService {
                 case .brightnessUpdate(let brightnessDisplayServiceEvent):
                     return reduceDisplayServiceState(state: state, event: brightnessDisplayServiceEvent)
             }
-        }).share()
+        }).share(replay: 1, scope: .whileConnected)
         
-        self.displays$ = self.DisplayServiceState$.map({ $0.displays })
+        self.displays$ = self.state$.map({ $0.displays })
         
         disposeBag.insert([
             displaysUpdate$,
             brightnessUpdate$,
-            self.DisplayServiceState$.subscribe()
+            self.state$.subscribe()
         ]);
         
         displayService = self;

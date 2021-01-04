@@ -13,7 +13,7 @@ class BrightnessSerivce {
     func setBrightness(display: Display, brightnessValue: Double) -> Void {
         if (display.isNative == true) {
             BrightnessSerivce.setNativeBrightness?(display.id, brightnessValue)
-            BrightnessSerivce.DisplayServicesBrightnessChanged?(display.id, brightnessValue);
+//            BrightnessSerivce.DisplayServicesBrightnessChanged?(display.id, brightnessValue);
         } else {
             BrightnessSerivce.setExternalBrightness(displayID: display.id, brightnessValue: brightnessValue)
         }
@@ -30,14 +30,14 @@ class BrightnessSerivce {
     
     // source https://github.com/MonitorControl/MonitorControl/blob/master/MonitorControl/Model/InternalDisplay.swift#L62
     private static var getNativeBrightness: ((CGDirectDisplayID) -> Double)? {
-      let coreDisplayPath = CFURLCreateWithString(kCFAllocatorDefault, "/System/Library/Frameworks/CoreDisplay.framework" as CFString, nil)
-      if let coreDisplayBundle = CFBundleCreate(kCFAllocatorDefault, coreDisplayPath) {
-        if let funcPointer = CFBundleGetFunctionPointerForName(coreDisplayBundle, "CoreDisplay_Display_GetUserBrightness" as CFString) {
-          typealias CDGUBFunctionType = @convention(c) (UInt32) -> Double
-          return unsafeBitCast(funcPointer, to: CDGUBFunctionType.self)
+        let coreDisplayPath = CFURLCreateWithString(kCFAllocatorDefault, "/System/Library/Frameworks/CoreDisplay.framework" as CFString, nil)
+        if let coreDisplayBundle = CFBundleCreate(kCFAllocatorDefault, coreDisplayPath) {
+          if let funcPointer = CFBundleGetFunctionPointerForName(coreDisplayBundle, "CoreDisplay_Display_GetUserBrightness" as CFString) {
+            typealias CDGUBFunctionType = @convention(c) (UInt32) -> Double
+            return unsafeBitCast(funcPointer, to: CDGUBFunctionType.self)
+          }
         }
-      }
-      return nil
+        return nil
     }
     
     // source: https://github.com/MonitorControl/MonitorControl/blob/master/MonitorControl/Model/InternalDisplay.swift#L75
@@ -64,16 +64,15 @@ class BrightnessSerivce {
     }
     
     private static func getExternalBrightness(displayID: UInt32) -> Double {
-        guard let (currentValue, _) = DDC(for: displayID)?.read(command: .brightness, tries: 1, minReplyDelay: 1000) else {
-            return 0.0
+        guard let (currentValue, _) = DDC(for: displayID)?.read(command: .brightness, tries: 5) else {
+            return -1.0
         }
         
         return Double(currentValue) / 100;
     }
     
     private static func setExternalBrightness(displayID: UInt32, brightnessValue: Double) -> Void {
-        let writeResult =  DDC(for: displayID)?.write(command: .brightness, value: UInt16(brightnessValue * 100))
-        guard writeResult == true else {
+        guard DDC(for: displayID)?.write(command: .brightness,  value: UInt16(brightnessValue * 100)) == true else {
           return
         }
     }

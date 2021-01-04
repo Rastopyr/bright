@@ -26,15 +26,15 @@ class MediaKeyObserver {
         
         mediaKeyService.brightnessTap$
             .do(onNext: { (mediaKey: MediaKey) in
-                self.appService.activate()
-                
                 switch(mediaKey) {
                     case .brightnessUp:
                         self.displayBrightnessService.incrementBrightness()
                     case .brightnessDown:
                         self.displayBrightnessService.decrementBrightness()
                     default: break
-                } 
+                }
+                
+                self.appService.activate()
             })
             .debounce(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
             .delay(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
